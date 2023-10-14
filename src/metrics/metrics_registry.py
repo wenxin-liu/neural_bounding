@@ -3,8 +3,7 @@ class MetricsRegistry:
         self.metrics_registry = {}
 
     def register_counter_metric(self, name):
-        if name not in self.metrics_registry:
-            self.metrics_registry[name] = 0.0
+        self.metrics_registry[name] = 0.0
 
     def get_metric(self, name):
         return {name: self.metrics_registry[name]}
