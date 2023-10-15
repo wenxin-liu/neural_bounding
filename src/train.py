@@ -1,30 +1,28 @@
-from src import device
 import torch.optim as optim
 
 from src.loss.loss import BCELossWithClassWeights
 from src.metrics.metrics_calculator import MetricsCalculator
 from src.metrics.metrics_registry import MetricsRegistry
-from src.ours_neural.nn_model_2d import OursNeural2D
-from src.wiring import get_source_data, get_training_data
+from src.wiring import get_source_data, get_training_data, get_model
 
 
-def train(query, object_name):
+def train(object_name, query, dimension):
     # hyperparameters
-    input_dim = 2
-    n_sample = 50000
+    n_objects = 10_000
+    n_samples = 2000
 
     # load data
-    data = get_source_data(input_dim, object_name)
+    data = get_source_data(object_name=object_name, dimension=dimension)
 
     # initialise model, asymmetric binary cross-entropy loss function, and optimiser
-    model = OursNeural2D(input_dim).to(device)
+    model = get_model(query=query, dimension=dimension)
     class_weight = 1
     criterion = BCELossWithClassWeights(positive_class_weight=1, negative_class_weight=1)
     optimiser = optim.Adam(model.parameters(), lr=0.0001)
 
     # initialise counter and print_frequency
     weight_schedule_frequency = 500_000
-    total_iterations = weight_schedule_frequency * 30  # set large total number of iterations for early stopping to terminate training
+    total_iterations = weight_schedule_frequency * 30  # set high iterations for early stopping to terminate training
     evaluation_frequency = weight_schedule_frequency // 10
     print_frequency = 1000  # print loss every 1k iterations
     metrics_frequency = 10000  # show metrics every 10k iterations
@@ -34,7 +32,8 @@ def train(query, object_name):
     metrics_registry = MetricsRegistry()
 
     for iteration in range(total_iterations):
-        features, targets = get_training_data(query=query, dimension=2, data=data, n_objects=10000, n_samples=n_samples)
+        features, targets = get_training_data(query=query, dimension=dimension, data=data, n_objects=n_objects,
+                                              n_samples=n_samples)
 
         # forward pass
         output = model(features)
