@@ -1,6 +1,6 @@
 from src import device
 from src.indicator.indicator import indicator
-from src.regions.sample_points import sample_points
+from src.regions.sample_points import sample_points, generate_points
 import torch
 import matplotlib.pyplot as plt
 import torch.optim as optim
@@ -38,16 +38,17 @@ def train_ours_neural_2d_point():
 
     for iteration in range(total_iterations):
         # generate n_sample of random sample points
-        x_sample = sample_points(n_sample, input_dim).to(device)
+        features = generate_points(n_sample, input_dim).to(device)
+        sampled_points = sample_points(features).to(device)
 
         # generate the corresponding targets using indicator function
-        y_sample = indicator(x_sample, data).to(device)
+        targets = indicator(sampled_points, data).to(device)
 
         # forward pass
-        output = model(x_sample)
+        output = model(features)
 
         # compute loss
-        loss = criterion(output, y_sample)
+        loss = criterion(output, targets)
 
         # zero gradients, backward pass, optimiser step
         optimiser.zero_grad()
@@ -61,8 +62,8 @@ def train_ours_neural_2d_point():
             print(f'Iteration: {iteration + 1}, Loss: {loss.item()}')
 
         if (iteration + 1) % metrics_frequency == 0 or iteration == 0:
-            out = (model(x_sample).cpu().detach() >= 0.5).float().numpy()
-            targets = y_sample.cpu().detach().numpy()
+            out = (model(features).cpu().detach() >= 0.5).float().numpy()
+            targets = targets.cpu().detach().numpy()
 
             MetricsCalculator.calculate(metrics_registry, prediction=out, target=targets)
             metrics = metrics_registry.get_metrics()
