@@ -1,6 +1,6 @@
 from src import device
 from src.indicator.indicator import indicator
-from src.indicator.region_samplers import sample_points
+from src.regions.sample_points import sample_points
 import torch
 import matplotlib.pyplot as plt
 import torch.optim as optim
