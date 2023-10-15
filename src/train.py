@@ -8,31 +8,32 @@ from src.wiring import get_source_data, get_training_data, get_model
 
 def train(object_name, query, dimension):
     # hyperparameters
-    n_objects = 10_000
+    n_objects = 50_000
     n_samples = 2000
 
     # load data
     data = get_source_data(object_name=object_name, dimension=dimension)
 
-    # initialise model, asymmetric binary cross-entropy loss function, and optimiser
+    # initialise model
     model = get_model(query=query, dimension=dimension)
+
+    # initialise asymmetric binary cross-entropy loss function, and optimiser
     class_weight = 1
     criterion = BCELossWithClassWeights(positive_class_weight=1, negative_class_weight=1)
     optimiser = optim.Adam(model.parameters(), lr=0.0001)
 
     # initialise counter and print_frequency
     weight_schedule_frequency = 500_000
-    total_iterations = weight_schedule_frequency * 30  # set high iterations for early stopping to terminate training
+    total_iterations = weight_schedule_frequency * 100  # set high iterations for early stopping to terminate training
     evaluation_frequency = weight_schedule_frequency // 10
     print_frequency = 1000  # print loss every 1k iterations
-    metrics_frequency = 10000  # show metrics every 10k iterations
 
     # instantiate count for early stopping
     count = 0
     metrics_registry = MetricsRegistry()
 
     for iteration in range(total_iterations):
-        features, targets = get_training_data(query=query, dimension=dimension, data=data, n_objects=n_objects,
+        features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
                                               n_samples=n_samples)
 
         # forward pass
@@ -46,13 +47,11 @@ def train(object_name, query, dimension):
         loss.backward()
         optimiser.step()
 
-        # increment counter
-
         # print loss
         if (iteration + 1) % print_frequency == 0 or iteration == 0:
             print(f'Iteration: {iteration + 1}, Loss: {loss.item()}')
 
-        if (iteration + 1) % metrics_frequency == 0 or iteration == 0:
+        if (iteration + 1) % evaluation_frequency == 0 or iteration == 0:
             out = (model(features).cpu().detach() >= 0.5).float().numpy()
             targets = targets.cpu().detach().numpy()
 

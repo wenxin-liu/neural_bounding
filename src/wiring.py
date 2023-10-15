@@ -2,6 +2,8 @@ from src import device
 from src.data.data_importer import load_data_2d, load_data_3d, load_data_4d
 from src.indicator.indicator import indicator
 from src.ours_neural.nn_model_2d import OursNeural2D
+from src.ours_neural.nn_model_3d import OursNeural3D
+from src.ours_neural.nn_model_4d import OursNeural4D, OursNeural4DPlane
 from src.regions.sample_points import generate_points
 from src.regions.sample_rays import generate_rays, sample_ray
 
@@ -11,11 +13,13 @@ def get_source_data(object_name, dimension):
         return load_data_2d(object_name)
     elif dimension == 3:
         return load_data_3d(object_name)
-    else:
+    elif dimension == 4:
         return load_data_4d(object_name)
+    else:
+        raise ValueError(f"Unsupported dimension: {dimension}")
 
 
-def get_training_data(query, dimension, data, n_objects, n_samples=1):
+def get_training_data(data, query, dimension, n_objects, n_samples=1):
     if query == 'point':
         features = generate_points(n_objects, dimension).to(device)
 
@@ -38,5 +42,18 @@ def get_training_data(query, dimension, data, n_objects, n_samples=1):
 def get_model(query, dimension):
     if dimension == 2 and query == "point":
         return OursNeural2D(dimension).to(device)
-    else:
+    elif dimension == 2 and query != "point":
         return OursNeural2D(dimension*2).to(device)
+    elif dimension == 3 and query == "point":
+        return OursNeural3D(dimension).to(device)
+    elif dimension == 3 and query != "point":
+        return OursNeural3D(dimension*2).to(device)
+    elif dimension == 4 and query == "point":
+        return OursNeural4D(dimension).to(device)
+    elif dimension == 4 and query == "plane":
+        return OursNeural4DPlane(dimension*2).to(device)
+    elif dimension == 4 and (query == "ray" or query == "box"):
+        return OursNeural4D(dimension*2).to(device)
+    else:
+        raise ValueError(f"Unsupported task: {query} and {dimension}")
+
