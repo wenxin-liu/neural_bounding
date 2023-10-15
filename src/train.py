@@ -1,23 +1,20 @@
 from src import device
-from src.indicator.indicator import indicator
-from src.regions.sample_points import sample_points, generate_points
-import torch
-import matplotlib.pyplot as plt
 import torch.optim as optim
 
 from src.loss.loss import BCELossWithClassWeights
 from src.metrics.metrics_calculator import MetricsCalculator
 from src.metrics.metrics_registry import MetricsRegistry
 from src.ours_neural.nn_model_2d import OursNeural2D
+from src.wiring import get_source_data, get_training_data
 
 
-def train_ours_neural_2d_point():
+def train(query, object_name):
     # hyperparameters
     input_dim = 2
     n_sample = 50000
 
     # load data
-    data = torch.tensor(plt.imread('bunny_32.png')[:, :, 3] >= 0.5).float().to(device)
+    data = get_source_data(input_dim, object_name)
 
     # initialise model, asymmetric binary cross-entropy loss function, and optimiser
     model = OursNeural2D(input_dim).to(device)
@@ -37,12 +34,7 @@ def train_ours_neural_2d_point():
     metrics_registry = MetricsRegistry()
 
     for iteration in range(total_iterations):
-        # generate n_sample of random sample points
-        features = generate_points(n_sample, input_dim).to(device)
-        sampled_points = sample_points(features).to(device)
-
-        # generate the corresponding targets using indicator function
-        targets = indicator(sampled_points, data).to(device)
+        features, targets = get_training_data(query=query, dimension=2, data=data, n_objects=10000, n_samples=n_samples)
 
         # forward pass
         output = model(features)

@@ -1,11 +1,8 @@
-import numpy as np
-from PIL import Image
 import torch
+import matplotlib.pyplot as plt
+
+from src import device
 
 
-def load_data_2d(filename):
-    # read image, convert to grayscale, and transform to a numpy array
-    image_array = np.array(Image.open(filename).convert('L'))
-
-    # convert to binary and return as a PyTorch tensor
-    return torch.tensor(image_array >= 127.5, dtype=torch.float32)
+def load_data_2d(object_name):
+    return torch.tensor(plt.imread(f'{object_name}_32.png')[:, :, 3] >= 0.5).float().to(device)
