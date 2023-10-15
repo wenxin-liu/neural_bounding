@@ -1,5 +1,5 @@
 from src import device
-from src.data.data_importer import load_data_2d
+from src.data.data_importer import load_data_2d, load_data_3d, load_data_4d
 from src.indicator.indicator import indicator
 from src.ours_neural.nn_model_2d import OursNeural2D
 from src.regions.sample_points import generate_points
@@ -9,6 +9,10 @@ from src.regions.sample_rays import generate_rays, sample_ray
 def get_source_data(object_name, dimension):
     if dimension == 2:
         return load_data_2d(object_name)
+    elif dimension == 3:
+        return load_data_3d(object_name)
+    else:
+        return load_data_4d(object_name)
 
 
 def get_training_data(query, dimension, data, n_objects, n_samples=1):
