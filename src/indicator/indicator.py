@@ -30,11 +30,7 @@ def extract_values(array_nd, scaled_points, final_mask):
 
 def indicator(points, array_nd):
     # indicator function to get ground truth values
-    array_shape = array_nd.shape
-    scaled_points, final_mask = filter_points(points, array_shape)
+    scaled_points, final_mask = filter_points(points, array_nd.shape)
     values_at_coords = extract_values(array_nd, scaled_points, final_mask)
 
-    if values_at_coords.shape[0] == 1:
-        return torch.any(values_at_coords == 1.0, dim=-1, keepdim=True).float()
-
-    return torch.any(values_at_coords == 1.0, dim=1, keepdim=True).float()
+    return torch.any(values_at_coords == 1.0, dim=1, keepdim=True).view(points.shape[0], -1).float()
