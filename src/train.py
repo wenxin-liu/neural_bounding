@@ -1,5 +1,6 @@
 import torch.optim as optim
 
+from src.data.data_exporter import DataExporter
 from src.loss.loss import BCELossWithClassWeights
 from src.metrics.metrics_calculator import MetricsCalculator
 from src.metrics.metrics_registry import MetricsRegistry
@@ -13,6 +14,7 @@ def train(object_name, query, dimension):
 
     # load data
     data = get_source_data(object_name=object_name, dimension=dimension)
+    data_exporter = DataExporter(f'{object_name}_{dimension}d_{query}_query')
 
     # initialise model
     model = get_model(query=query, dimension=dimension)
@@ -61,6 +63,9 @@ def train(object_name, query, dimension):
             for key, value in metrics.items():
                 print(f"{key}: {value}")
 
+            data_exporter.save_experiment_results(class_weight=class_weight, metrics_registry=metrics_registry,
+                                                  iteration=iteration + 1, loss=loss)
+
         if (iteration + 1) % evaluation_frequency == 0:
             metrics = metrics_registry.get_metrics()
 
@@ -91,3 +96,5 @@ def train(object_name, query, dimension):
 
             print("class weight", class_weight)
             print("BCE loss negative class weight", criterion.negative_class_weight)
+
+    data_exporter.export_results()
