@@ -18,11 +18,13 @@ for object in "${objects[@]}"; do
     # box="--object_name ${object} --query box --dim ${dim}"
 
     # execute python script with the given arguments
+    echo "${object} ${dim}d point"
     python3 src/main.py $point
+
+    echo "${object} ${dim}d ray"
     python3 src/main.py $ray
     # uncomment these lines to include plane and box queries
     # python3 src/main.py $plane
     # python3 src/main.py $box
-
   done
 done

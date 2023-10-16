@@ -38,4 +38,4 @@ if __name__ == '__main__':
     # parse the arguments
     args = parser.parse_args()
 
-    train(object_name="bunny", query="ray", dimension=3)
+    train(object_name=args.object_name, query=args.query, dimension=args.dim)
