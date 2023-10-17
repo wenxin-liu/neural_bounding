@@ -1,7 +1,8 @@
 import argparse
 import torch
 
-from src.train import train
+from src.ours_kdop.train_ours_kdop import train_ours_kdop
+from src.ours_neural.train_ours_neural import train_ours_neural
 
 if __name__ == '__main__':
     torch.manual_seed(0)
@@ -38,4 +39,8 @@ if __name__ == '__main__':
     # parse the arguments
     args = parser.parse_args()
 
-    train(object_name=args.object_name, query=args.query, dimension=args.dim)
+    print(f"oursKDOP {args.object_name}, {args.query}, {args.dim}")
+    train_ours_kdop(object_name=args.object_name, query=args.query, dimension=args.dim)
+
+    print(f"oursNeural {args.object_name}, {args.query}, {args.dim}")
+    train_ours_neural(object_name=args.object_name, query=args.query, dimension=args.dim)

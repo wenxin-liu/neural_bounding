@@ -3,10 +3,10 @@ from typing import Dict, Any
 
 
 class DataExporter:
-    def __init__(self, directory_name: str):
+    def __init__(self, directory_name: str, filename: str):
         self.directory_path: Path = Path()
         self.csv_file = None
-        self.filename: str = ""
+        self.filename: str = filename
         self.save_results: Dict[int, Dict[str, Any]] = {}
 
         self._create_directory(directory_name)
@@ -18,17 +18,14 @@ class DataExporter:
         Parameters:
             directory_name (str): The name of the directory to be created.
         """
-
         project_root = Path(__file__).resolve().parents[2]
         results_dir = project_root / 'exporter_data' / directory_name
-
         results_dir.mkdir(parents=True, exist_ok=True)
         self.directory_path = results_dir
 
     def _append_line_to_csv(self, filename: str, line: str) -> None:
         if self.csv_file is None:
             self.csv_file = open(f"{self.directory_path}/{filename}", "w")
-            self.filename = filename
 
         self.csv_file.write(f"{line}\n")
 
@@ -47,11 +44,10 @@ class DataExporter:
 
     def export_results(self) -> None:
         header = "class weights,iteration,false negatives,false positives,true values,total samples,loss"
-        self._append_line_to_csv(filename="result.csv", line=header)
+        self._append_line_to_csv(filename=f'{self.filename}.csv', line=header)
 
         for iteration_results in self.save_results.values():
             line = ','.join(map(str, iteration_results.values()))
-            self._append_line_to_csv(filename="result.csv", line=line)
+            self._append_line_to_csv(filename=f'{self.filename}.csv', line=line)
 
-        if self.csv_file:
-            self.csv_file.close()
+        self.csv_file.close()
