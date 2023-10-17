@@ -14,7 +14,7 @@ for object in "${objects[@]}"; do
     point="--object_name ${object} --query point --dim ${dim}"
     ray="--object_name ${object} --query ray --dim ${dim}"
     plane="--object_name ${object} --query plane --dim ${dim}"
-    # box="--object_name ${object} --query box --dim ${dim}"
+    box="--object_name ${object} --query box --dim ${dim}"
 
     # execute python script with the given arguments
     echo "${object} ${dim}d point"
@@ -25,6 +25,8 @@ for object in "${objects[@]}"; do
 
     echo "${object} ${dim}d plane"
     python3 src/main.py $plane
-    # python3 src/main.py $box
+
+    echo "${object} ${dim}d box"
+    python3 src/main.py $box
   done
 done
