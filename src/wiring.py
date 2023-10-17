@@ -4,8 +4,9 @@ from src.indicator.indicator import indicator
 from src.ours_neural.nn_model_2d import OursNeural2D
 from src.ours_neural.nn_model_3d import OursNeural3D
 from src.ours_neural.nn_model_4d import OursNeural4D, OursNeural4DPlane
-from src.regions.sample_points import generate_points
-from src.regions.sample_rays import generate_rays, sample_ray
+from src.regions.sample_planes import get_planes, sample_planes
+from src.regions.sample_points import get_points
+from src.regions.sample_rays import get_rays, sample_ray
 
 
 def get_source_data(object_name, dimension):
@@ -21,15 +22,15 @@ def get_source_data(object_name, dimension):
 
 def get_training_data(data, query, dimension, n_objects, n_samples=1):
     if query == 'point':
-        features = generate_points(n_objects, dimension).to(device)
+        features = get_points(n_objects, dimension).to(device)
 
         # generate the corresponding targets using indicator function
         targets = indicator(features, data).to(device)
     elif query == 'ray':
         # generate n_sample of random sample points
-        features = generate_rays(n_dim=dimension, n_rays=n_objects).to(device)
+        features = get_rays(n_dim=dimension, batch_size=n_objects).to(device)
 
-        sampled_rays = sample_ray(features, n_samples_on_ray=n_samples).to(device)
+        sampled_rays = sample_ray(features, n_samples=n_samples).to(device)
 
         # generate the corresponding targets using indicator function
         targets = indicator(sampled_rays, data).to(device)
