@@ -25,9 +25,9 @@ def train(object_name, query, dimension):
     optimiser = optim.Adam(model.parameters(), lr=0.0001)
 
     # initialise counter and print_frequency
-    weight_schedule_frequency = 500_000
-    total_iterations = weight_schedule_frequency * 100  # set high iterations for early stopping to terminate training
-    evaluation_frequency = weight_schedule_frequency // 10
+    weight_schedule_frequency = 250_000
+    total_iterations = weight_schedule_frequency * 200  # set high iterations for early stopping to terminate training
+    evaluation_frequency = weight_schedule_frequency // 5
     print_frequency = 1000  # print loss every 1k iterations
 
     # instantiate count for early stopping

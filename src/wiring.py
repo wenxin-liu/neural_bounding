@@ -30,10 +30,18 @@ def get_training_data(data, query, dimension, n_objects, n_samples=1):
         # generate n_sample of random sample points
         features = get_rays(n_dim=dimension, batch_size=n_objects).to(device)
 
-        sampled_rays = sample_ray(features, n_samples=n_samples).to(device)
+        sampled_rays = sample_ray(rays=features, n_samples=n_samples).to(device)
 
         # generate the corresponding targets using indicator function
         targets = indicator(sampled_rays, data).to(device)
+    elif query == 'plane':
+        # generate n_sample of random sample points
+        features = get_planes(n_dim=dimension, batch_size=n_objects).to(device)
+
+        sampled_planes = sample_planes(planes=features, n_samples=n_samples).to(device)
+
+        # generate the corresponding targets using indicator function
+        targets = indicator(sampled_planes, data).to(device)
     else:
         raise ValueError("other queries not yet supported")
 

@@ -13,8 +13,7 @@ for object in "${objects[@]}"; do
     # set command line arguments for various queries
     point="--object_name ${object} --query point --dim ${dim}"
     ray="--object_name ${object} --query ray --dim ${dim}"
-    # uncomment these lines to include plane and box queries
-    # plane="--object_name ${object} --query plane --dim ${dim}"
+    plane="--object_name ${object} --query plane --dim ${dim}"
     # box="--object_name ${object} --query box --dim ${dim}"
 
     # execute python script with the given arguments
@@ -23,8 +22,9 @@ for object in "${objects[@]}"; do
 
     echo "${object} ${dim}d ray"
     python3 src/main.py $ray
-    # uncomment these lines to include plane and box queries
-    # python3 src/main.py $plane
+
+    echo "${object} ${dim}d plane"
+    python3 src/main.py $plane
     # python3 src/main.py $box
   done
 done
