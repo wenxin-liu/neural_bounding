@@ -1,36 +1,39 @@
 import torch
 
-from src import device
+
+# compute scaling factors based on array dimensions
+def compute_scalars(array_shape):
+    return torch.tensor(array_shape) - 1
 
 
-def compute_scalars(array_shape, dim):
-    # compute scaling factors based on array dimensions
-    if dim == 4:
-        return torch.tensor([array_shape[0] - 1] + [array_shape[1] - 1] * (dim - 1), dtype=torch.float32)
-    return torch.tensor([array_shape[0] - 1] * dim, dtype=torch.float32)
-
-
+# scale and filter points based on array dimensions
 def filter_points(points, array_shape):
-    # scale and filter points based on array dimensions
-    dim = len(array_shape)
-    scalars = compute_scalars(array_shape, dim).to(device)
-    scaled_points = torch.round(points * scalars).to(torch.int64)
-    masks = [(scaled_points[..., i] >= 0) & (scaled_points[..., i] < array_shape[i]) for i in range(dim)]
-    final_mask = torch.stack(masks, dim=-1).all(dim=-1)
-    scaled_points[~final_mask] = 0
-    return scaled_points, final_mask
+    # compute scaling factors
+    scalars = compute_scalars(array_shape)
+
+    # scale and round the points
+    scaled_points = torch.round(points * scalars)
+
+    # clamp the points to be within the array dimensions
+    min_tensor = torch.zeros_like(scalars)
+    max_tensor = scalars
+    clamped_points = torch.min(torch.max(scaled_points, min_tensor), max_tensor)
+
+    return torch.round(clamped_points).to(int)
 
 
-def extract_values(array_nd, scaled_points, final_mask):
-    # retrieve values at filtered coordinates
-    values = array_nd[tuple(scaled_points[..., i] for i in range(scaled_points.shape[-1]))]
-    values[~final_mask] = 0
-    return values.view(scaled_points.shape[:-1] + (1,))
+# retrieve values at filtered coordinates
+def extract_values(array_nd, points):
+    values = array_nd[tuple(points[..., i] for i in range(points.shape[-1]))]
+    return values.view(points.shape[:-1] + (1,))
 
 
+# indicator function to get ground truth values
 def indicator(points, array_nd):
-    # indicator function to get ground truth values
-    scaled_points, final_mask = filter_points(points, array_nd.shape)
-    values_at_coords = extract_values(array_nd, scaled_points, final_mask)
+    # scale and filter the points
+    scaled_points = filter_points(points, array_nd.shape)
+
+    # extract values at the scaled and filtered coordinates
+    values_at_coords = extract_values(array_nd, scaled_points)
 
     return torch.any(values_at_coords == 1.0, dim=1, keepdim=True).view(points.shape[0], -1).float()
