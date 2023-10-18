@@ -26,22 +26,22 @@ def filter_points(points, array_shape):
     return scaled_points, final_mask
 
 
-def extract_values(array_nd, scaled_points, final_mask):
+def extract_values(data, scaled_points, final_mask):
     # extract the values from 'array_nd' at the coordinates specified in 'scaled_points'
     # set the values to zero where 'final_mask' is False
-    values = array_nd[tuple(scaled_points[..., i] for i in range(scaled_points.shape[-1]))]
+    values = data[tuple(scaled_points[..., i] for i in range(scaled_points.shape[-1]))]
     values[~final_mask] = 0
 
     return values.view(scaled_points.shape[:-1] + (1,))
 
 
-def indicator(points, array_nd):
+def indicator(points, data):
     # apply the indicator function to get ground truth values
-    # filter and scale the points based on the shape of 'array_nd'
-    scaled_points, final_mask = filter_points(points, array_nd.shape)
+    # filter and scale the points based on the shape of the data
+    scaled_points, final_mask = filter_points(points=points, array_shape=data.shape)
 
     # extract the values at the scaled and filtered coordinates
-    values_at_coords = extract_values(array_nd, scaled_points, final_mask)
+    values_at_coords = extract_values(data, scaled_points, final_mask)
 
     # check if any of the values are 1.0 and reshape the result
     return torch.any(values_at_coords == 1.0, dim=1, keepdim=True).view(points.shape[0], -1).float()

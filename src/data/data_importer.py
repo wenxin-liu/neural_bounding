@@ -1,14 +1,23 @@
 import torch
-import matplotlib.pyplot as plt
 import numpy as np
 
 from src import device
 from src.data import binvox_rw
 
+from PIL import Image
 
-# function to load 2D data
-def load_data_2d(object_name):
-    return torch.tensor(plt.imread(f'{object_name}_32.png')[:, :, 3] >= 0.5).float().to(device)
+
+# methods to read image from file, convert to grayscale, then convert to binary
+def load_data_2d(filename):
+    filename = f'{filename}_32_rot90.png'
+    image = Image.open(filename).convert('L')
+
+    # convert grayscale image into a numpy array
+    return torch.from_numpy(np.where(np.array(image) >= 127.5, 1., 0.)).to(device)
+
+# # function to load 2D data
+# def load_data_2d(object_name):
+#     return torch.tensor(plt.imread(f'{object_name}_32.png')[:, :, 3] >= 0.5).float().to(device)
 
 
 def load_binvox(fn):
