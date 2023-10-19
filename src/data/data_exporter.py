@@ -29,7 +29,7 @@ class DataExporter:
 
         self.csv_file.write(f"{line}\n")
 
-    def save_experiment_results(self, class_weight: float, metrics_registry: Any, iteration: int, loss: float = 0.0) -> None:
+    def save_experiment_results(self, class_weight: Any, metrics_registry: Any, iteration: Any, loss: float = 0.0) -> None:
         metrics = metrics_registry.get_metrics()
 
         self.save_results[iteration] = {

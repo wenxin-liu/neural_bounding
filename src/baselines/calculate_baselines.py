@@ -23,7 +23,7 @@ def calculate_baselines(object_name, query, dimension):
     dim = dimension if query == 'point' else dimension*2
 
     data = get_source_data(object_name=object_name, dimension=dimension)
-    data_exporter = DataExporter(f'{object_name}_{dimension}d_{query}_query', "aabb")
+    data_exporter = DataExporter(f'{object_name}_{dimension}d_{query}_query', "result")
 
     metrics_registry = MetricsRegistry()
 
@@ -37,23 +37,32 @@ def calculate_baselines(object_name, query, dimension):
     print("AABox")
     calculate_AABox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="AABox", iteration="AABox", metrics_registry=metrics_registry)
 
     print("OBox")
     calculate_OBox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="OBox", iteration="OBox", metrics_registry=metrics_registry)
 
     print("Sphere")
     calculate_Sphere(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="Sphere", iteration="Sphere", metrics_registry=metrics_registry)
 
     print("AAElli")
     calculate_AAElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="AAElli", iteration="AAElli", metrics_registry=metrics_registry)
 
     print("OElli")
     calculate_OElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="OElli", iteration="OElli", metrics_registry=metrics_registry)
 
     print("kDOP")
     calculate_kDOP(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
+    data_exporter.save_experiment_results(class_weight="kDOP", iteration="kDOP", metrics_registry=metrics_registry)
+
+    # export baselines results
+    data_exporter.export_results()
