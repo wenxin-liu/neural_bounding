@@ -4,6 +4,7 @@ from src.baselines.OElli import calculate_OElli
 from src.baselines.helper import extract_ground_truth_classes
 from src.baselines.OBox import calculate_OBox
 from src.baselines.Sphere import calculate_Sphere
+from src.baselines.kDOP import calculate_kDOP
 from src.data.data_exporter import DataExporter
 from src.metrics.helper import print_metrics
 from src.metrics.metrics_registry import MetricsRegistry
@@ -51,4 +52,8 @@ def calculate_baselines(object_name, query, dimension):
 
     print("OElli")
     calculate_OElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
+    print_metrics(metrics_registry)
+
+    print("kDOP")
+    calculate_kDOP(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
