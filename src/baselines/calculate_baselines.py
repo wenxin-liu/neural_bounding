@@ -1,3 +1,4 @@
+from src.baselines.AAElli import calculate_AAElli
 from src.baselines.aabb import calculate_aabb
 from src.baselines.helper import extract_ground_truth_classes
 from src.baselines.obb import calculate_obb
@@ -31,7 +32,7 @@ def calculate_baselines(object_name, query, dimension):
     gt_positive = result["gt_positive"]
     gt_negative = result["gt_negative"]
 
-    print("aabb")
+    print("AABox")
     calculate_aabb(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     print_metrics(metrics_registry)
 
@@ -41,4 +42,8 @@ def calculate_baselines(object_name, query, dimension):
 
     print("sphere")
     calculate_sphere(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
+    print_metrics(metrics_registry)
+
+    print("AAElli")
+    calculate_AAElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
