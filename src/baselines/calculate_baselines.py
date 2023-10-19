@@ -1,8 +1,8 @@
 from src.baselines.AAElli import calculate_AAElli
-from src.baselines.aabb import calculate_aabb
+from src.baselines.AABox import calculate_AABox
 from src.baselines.helper import extract_ground_truth_classes
-from src.baselines.obb import calculate_obb
-from src.baselines.sphere import calculate_sphere
+from src.baselines.OBox import calculate_OBox
+from src.baselines.Sphere import calculate_Sphere
 from src.data.data_exporter import DataExporter
 from src.metrics.helper import print_metrics
 from src.metrics.metrics_registry import MetricsRegistry
@@ -33,15 +33,15 @@ def calculate_baselines(object_name, query, dimension):
     gt_negative = result["gt_negative"]
 
     print("AABox")
-    calculate_aabb(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
+    calculate_AABox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     print_metrics(metrics_registry)
 
-    print("obb")
-    calculate_obb(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
+    print("OBox")
+    calculate_OBox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     print_metrics(metrics_registry)
 
-    print("sphere")
-    calculate_sphere(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
+    print("Sphere")
+    calculate_Sphere(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
 
     print("AAElli")

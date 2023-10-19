@@ -2,6 +2,7 @@ import torch
 import torch.optim as optim
 
 
+# Sphere - bounding sphere implementation
 def generate_sphere_params(dimensions, centre=0.5, radius=0.3):
     # create the centre coordinates
     centre_coords = torch.full((dimensions,), centre, dtype=torch.float32)
@@ -43,7 +44,7 @@ def is_inside_sphere(points, params, dim):
     return num_inside_or_on, num_outside
 
 
-def calculate_sphere(gt_negative, gt_positive, metrics_registry, dim):
+def calculate_Sphere(gt_negative, gt_positive, metrics_registry, dim):
     # clean metrics registry
     metrics_registry.reset_metrics()
 

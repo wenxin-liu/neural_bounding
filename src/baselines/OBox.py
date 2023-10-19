@@ -1,7 +1,8 @@
 import torch
 
 
-def calculate_obb(gt_positive, gt_negative, metrics_registry):
+# OBox - oriented bounding box implementation
+def calculate_OBox(gt_positive, gt_negative, metrics_registry):
     # clean metrics registry
     metrics_registry.reset_metrics()
 

@@ -1,7 +1,8 @@
 import torch
 
 
-def calculate_aabb(gt_positive, gt_negative, metrics_registry):
+# AABox - axis-aligned bounding box implementation
+def calculate_AABox(gt_positive, gt_negative, metrics_registry):
     # clean metrics registry
     metrics_registry.reset_metrics()
 
