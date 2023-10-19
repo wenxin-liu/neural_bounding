@@ -10,7 +10,7 @@ from src.wiring import get_source_data, get_training_data, get_model
 def train_ours_neural(object_name, query, dimension):
     # hyperparameters
     n_objects = 50_000
-    n_samples = 1000 if dimension == 4 else 500
+    n_samples = 1500 if dimension == 4 else 500
 
     # load data
     data = get_source_data(object_name=object_name, dimension=dimension)

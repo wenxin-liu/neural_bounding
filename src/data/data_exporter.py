@@ -19,7 +19,7 @@ class DataExporter:
             directory_name (str): The name of the directory to be created.
         """
         project_root = Path(__file__).resolve().parents[2]
-        results_dir = project_root / 'exporter_data' / directory_name
+        results_dir = project_root / 'logs' / directory_name
         results_dir.mkdir(parents=True, exist_ok=True)
         self.directory_path = results_dir
 

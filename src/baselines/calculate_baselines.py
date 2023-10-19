@@ -1,4 +1,6 @@
 from src.baselines.aabb import calculate_aabb
+from src.baselines.helper import extract_ground_truth_classes
+from src.baselines.obb import calculate_obb
 from src.data.data_exporter import DataExporter
 from src.metrics.metrics_registry import MetricsRegistry
 from src.wiring import get_source_data, get_training_data
@@ -28,8 +30,18 @@ def calculate_baselines(object_name, query, dimension):
     features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
                                           n_samples=n_samples)
 
-    calculate_aabb(features, targets, metrics_registry)
+    result = extract_ground_truth_classes(features, targets)
+    gt_positive = result["gt_positive"]
+    gt_negative = result["gt_negative"]
 
+    print("aabb")
+    calculate_aabb(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
+    metrics = metrics_registry.get_metrics()
+    for key, value in metrics.items():
+        print(f"{key}: {value}")
+
+    print("obb")
+    calculate_obb(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
     metrics = metrics_registry.get_metrics()
     for key, value in metrics.items():
         print(f"{key}: {value}")

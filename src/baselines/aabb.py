@@ -1,15 +1,9 @@
 import torch
 
-from src.baselines.helper import extract_ground_truth_classes
 
-
-def calculate_aabb(features, targets, metrics_registry):
+def calculate_aabb(gt_positive, gt_negative, metrics_registry):
     # clean metrics registry
     metrics_registry.reset_metrics()
-
-    result = extract_ground_truth_classes(features, targets)
-    gt_positive = result["gt_positive"]
-    gt_negative = result["gt_negative"]
 
     # find aabb min and max coordinates
     aabb_min = torch.min(gt_positive, dim=0)[0]
@@ -21,7 +15,7 @@ def calculate_aabb(features, targets, metrics_registry):
     # this produces the false positive values for aabb
     fp_aabb = torch.sum(is_inside_aabb).item()
 
-    # take all the true positive points and calculate which fall outside the AABB
+    # take all the true positive points and calculate which fall outside the aabb
     is_outside_aabb = torch.any(aabb_min > gt_positive, dim=1) | torch.any(gt_positive > aabb_max, dim=1)
 
     # this produces the false negative values for aabb - should be 0
