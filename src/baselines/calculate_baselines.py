@@ -1,5 +1,6 @@
 from src.baselines.AAElli import calculate_AAElli
 from src.baselines.AABox import calculate_AABox
+from src.baselines.OElli import calculate_OElli
 from src.baselines.helper import extract_ground_truth_classes
 from src.baselines.OBox import calculate_OBox
 from src.baselines.Sphere import calculate_Sphere
@@ -46,4 +47,8 @@ def calculate_baselines(object_name, query, dimension):
 
     print("AAElli")
     calculate_AAElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
+    print_metrics(metrics_registry)
+
+    print("OElli")
+    calculate_OElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
     print_metrics(metrics_registry)
