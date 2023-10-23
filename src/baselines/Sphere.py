@@ -1,14 +1,16 @@
 import torch
 import torch.optim as optim
 
+from src import device
+
 
 # Sphere - bounding sphere implementation
 def generate_sphere_params(dimensions, centre=0.5, radius=0.3):
     # create the centre coordinates
-    centre_coords = torch.full((dimensions,), centre, dtype=torch.float32)
+    centre_coords = torch.full((dimensions,), centre, dtype=torch.float32, device=device)
 
     # create the axis lengths (radius)
-    axis_lengths = torch.full((1,), radius, dtype=torch.float32)
+    axis_lengths = torch.full((1,), radius, dtype=torch.float32, device=device)
 
     # concatenate to form the sphere parameters
     # initialize sphere parameters: [x_center, y_center, z_center, r]

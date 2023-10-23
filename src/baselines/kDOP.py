@@ -1,20 +1,22 @@
 import torch
 
+from src import device
+
 
 # kDOP implementation - k=4m, where m is the query dimensionality
 def calculate_4kDOP_normals(dim):
     if dim < 2:
         raise ValueError("dimensionality must be greater or equals to 2")
 
-    normals = torch.empty(dim * 2, dim)
+    normals = torch.empty(dim * 2, dim, device=device)
 
     for i in range(dim):
-        normal = torch.full((dim,), 0., dtype=torch.float)
+        normal = torch.full((dim,), 0., dtype=torch.float, device=device)
         normal[i] = 1.
         normals[i] = normal
 
     for j in range(dim):
-        normal = torch.full((dim,), 1., dtype=torch.float)
+        normal = torch.full((dim,), 1., dtype=torch.float, device=device)
         normal[j] = 0.
         normals[dim + j] = normal
 
@@ -22,8 +24,8 @@ def calculate_4kDOP_normals(dim):
 
 
 def calculate_kDOP(gt_positive, gt_negative, metrics_registry, dim):
-    mins = torch.empty(dim * 2, 1)
-    maxs = torch.empty(dim * 2, 1)
+    mins = torch.empty(dim * 2, 1, device=device)
+    maxs = torch.empty(dim * 2, 1, device=device)
 
     normals = calculate_4kDOP_normals(dim)
 
@@ -36,7 +38,7 @@ def calculate_kDOP(gt_positive, gt_negative, metrics_registry, dim):
         maxs[i] = max
 
     # Initialize a tensor to keep track of cumulative conditions
-    cumulative_conditions_fp = torch.full((gt_negative.shape[0],), True, dtype=torch.bool)
+    cumulative_conditions_fp = torch.full((gt_negative.shape[0],), True, dtype=torch.bool, device=device)
 
     for i in range(dim*2):
         new_points = gt_negative @ normals[i].unsqueeze(0).T
@@ -55,7 +57,7 @@ def calculate_kDOP(gt_positive, gt_negative, metrics_registry, dim):
     false_positive = torch.sum(cumulative_conditions_fp).item()
 
     # Initialise a tensor to keep track of cumulative conditions for false_negative
-    cumulative_conditions_fn = torch.full((gt_positive.shape[0],), False, dtype=torch.bool)
+    cumulative_conditions_fn = torch.full((gt_positive.shape[0],), False, dtype=torch.bool, device=device)
 
     for i in range(dim*2):
         new_points = gt_positive @ normals[i].unsqueeze(0).T

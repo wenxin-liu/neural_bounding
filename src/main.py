@@ -50,10 +50,10 @@ if __name__ == '__main__':
     resource_path = parent_directory / 'resources' / f'{args.dim}d'
     import_dataset_from_gdrive(resource_path, dim=args.dim)
 
-    # instantiate metrics registry for storing metrics
+    # instantiate the metrics registry for storing metrics
     metrics_registry = MetricsRegistry()
 
-    # instantiate data exporter for saving experiment results to file
+    # instantiate the data exporter for saving experiment results to file
     data_exporter = DataExporter(object_name=args.object_name, dimension=args.dim, query=args.query)
 
     # calculate all baseline results
