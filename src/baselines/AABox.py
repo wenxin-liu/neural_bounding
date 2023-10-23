@@ -3,9 +3,6 @@ import torch
 
 # AABox - axis-aligned bounding box implementation
 def calculate_AABox(gt_positive, gt_negative, metrics_registry):
-    # clean metrics registry
-    metrics_registry.reset_metrics()
-
     # find aabb min and max coordinates
     aabb_min = torch.min(gt_positive, dim=0)[0]
     aabb_max = torch.max(gt_positive, dim=0)[0]
@@ -22,12 +19,13 @@ def calculate_AABox(gt_positive, gt_negative, metrics_registry):
     # this produces the false negative values for aabb - should be 0
     fn_aabb = torch.sum(is_outside_aabb).item()
 
-    metrics_registry.register_counter_metric("false_negative")
-    metrics_registry.register_counter_metric("false_positive")
-    metrics_registry.register_counter_metric("true_value")
-    metrics_registry.register_counter_metric("total_samples")
-
-    metrics_registry.add("false_negative", fn_aabb)
-    metrics_registry.add("false_positive", fp_aabb)
-    metrics_registry.add("true_value", gt_positive.shape[0] + gt_negative.shape[0] - fp_aabb - fn_aabb)
-    metrics_registry.add("total_samples", gt_positive.shape[0] + gt_negative.shape[0])
+    # save AABox baseline results
+    metrics_registry.metrics_registry["AABox"] = {
+        "class weight": "N/A",
+        "iteration": "N/A",
+        "false negatives": fn_aabb,
+        "false positives": fp_aabb,
+        "true values": gt_positive.shape[0] + gt_negative.shape[0] - fp_aabb - fn_aabb,
+        "total samples": gt_positive.shape[0] + gt_negative.shape[0],
+        "loss": "N/A"
+    }

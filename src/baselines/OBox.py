@@ -3,9 +3,6 @@ import torch
 
 # OBox - oriented bounding box implementation
 def calculate_OBox(gt_positive, gt_negative, metrics_registry):
-    # clean metrics registry
-    metrics_registry.reset_metrics()
-
     covariance = torch.cov(gt_positive.T)
 
     eigen_values, eigen_vectors = torch.linalg.eig(covariance)
@@ -33,12 +30,13 @@ def calculate_OBox(gt_positive, gt_negative, metrics_registry):
     # this produces the false negative values for obb - should be 0
     fn_obb = torch.sum(is_outside_obb).item()
 
-    metrics_registry.register_counter_metric("false_negative")
-    metrics_registry.register_counter_metric("false_positive")
-    metrics_registry.register_counter_metric("true_value")
-    metrics_registry.register_counter_metric("total_samples")
-
-    metrics_registry.add("false_negative", fn_obb)
-    metrics_registry.add("false_positive", fp_obb)
-    metrics_registry.add("true_value", gt_positive.shape[0] + gt_negative.shape[0] - fp_obb - fn_obb)
-    metrics_registry.add("total_samples", gt_positive.shape[0] + gt_negative.shape[0])
+    # save OBox baseline results
+    metrics_registry.metrics_registry["OBox"] = {
+        "class weight": "N/A",
+        "iteration": "N/A",
+        "false negatives": fn_obb,
+        "false positives": fp_obb,
+        "true values": gt_positive.shape[0] + gt_negative.shape[0] - fp_obb - fn_obb,
+        "total samples": gt_positive.shape[0] + gt_negative.shape[0],
+        "loss": "N/A"
+    }

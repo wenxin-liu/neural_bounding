@@ -2,6 +2,8 @@ import argparse
 import torch
 
 from src.baselines.calculate_baselines import calculate_baselines
+from src.data.data_exporter import DataExporter
+from src.metrics.metrics_registry import MetricsRegistry
 from src.ours_kdop.train_ours_kdop import train_ours_kdop
 from src.ours_neural.train_ours_neural import train_ours_neural
 
@@ -37,15 +39,22 @@ if __name__ == '__main__':
         default=None,
         help="indicator dimension")
 
-    # parse the arguments
+    # parse the command line arguments
     args = parser.parse_args()
 
-    print(f"aabb {args.object_name}, {args.query}, {args.dim}")
-    calculate_baselines(object_name=args.object_name, query=args.query, dimension=args.dim)
-    print("")
+    # instantiate metrics registry for storing metrics
+    metrics_registry = MetricsRegistry()
 
-    print(f"oursKDOP {args.object_name}, {args.query}, {args.dim}")
-    train_ours_kdop(object_name=args.object_name, query=args.query, dimension=args.dim)
+    # instantiate data exporter for saving experiment results to file
+    data_exporter = DataExporter(object_name=args.object_name, dimension=args.dim, query=args.query)
 
-    print(f"oursNeural {args.object_name}, {args.query}, {args.dim}")
-    train_ours_neural(object_name=args.object_name, query=args.query, dimension=args.dim)
+    calculate_baselines(object_name=args.object_name, query=args.query, dimension=args.dim,
+                        metrics_registry=metrics_registry)
+
+    train_ours_kdop(object_name=args.object_name, query=args.query, dimension=args.dim,
+                    metrics_registry=metrics_registry)
+
+    train_ours_neural(object_name=args.object_name, query=args.query, dimension=args.dim,
+                      metrics_registry=metrics_registry)
+
+    data_exporter.export_results(metrics_registry)

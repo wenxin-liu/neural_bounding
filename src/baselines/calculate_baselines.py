@@ -5,13 +5,11 @@ from src.baselines.helper import extract_ground_truth_classes
 from src.baselines.OBox import calculate_OBox
 from src.baselines.Sphere import calculate_Sphere
 from src.baselines.kDOP import calculate_kDOP
-from src.data.data_exporter import DataExporter
 from src.metrics.helper import print_metrics
-from src.metrics.metrics_registry import MetricsRegistry
 from src.wiring import get_source_data, get_training_data
 
 
-def calculate_baselines(object_name, query, dimension):
+def calculate_baselines(object_name, query, dimension, metrics_registry):
     if dimension == 2:
         n_objects = 25_000
     elif dimension == 3:
@@ -23,9 +21,6 @@ def calculate_baselines(object_name, query, dimension):
     dim = dimension if query == 'point' else dimension*2
 
     data = get_source_data(object_name=object_name, dimension=dimension)
-    data_exporter = DataExporter(f'{object_name}_{dimension}d_{query}_query', "result")
-
-    metrics_registry = MetricsRegistry()
 
     features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
                                           n_samples=n_samples)
@@ -34,35 +29,26 @@ def calculate_baselines(object_name, query, dimension):
     gt_positive = result["gt_positive"]
     gt_negative = result["gt_negative"]
 
-    print("AABox")
+    print(f"AABox {object_name} {dimension}D {query} query")
     calculate_AABox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="AABox", iteration="AABox", metrics_registry=metrics_registry)
+    print_metrics(metrics_registry.metrics_registry["AABox"])
 
-    print("OBox")
+    print(f"OBox {object_name} {dimension}D {query} query")
     calculate_OBox(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="OBox", iteration="OBox", metrics_registry=metrics_registry)
+    print_metrics(metrics_registry.metrics_registry["OBox"])
 
-    print("Sphere")
+    print(f"Sphere {object_name} {dimension}D {query} query")
     calculate_Sphere(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="Sphere", iteration="Sphere", metrics_registry=metrics_registry)
+    print_metrics(metrics_registry.metrics_registry["Sphere"])
 
-    print("AAElli")
+    print(f"AAElli {object_name} {dimension}D {query} query")
     calculate_AAElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="AAElli", iteration="AAElli", metrics_registry=metrics_registry)
+    print_metrics(metrics_registry.metrics_registry["AAElli"])
 
-    print("OElli")
+    print(f"OElli {object_name} {dimension}D {query} query")
     calculate_OElli(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="OElli", iteration="OElli", metrics_registry=metrics_registry)
+    print_metrics(metrics_registry.metrics_registry["OElli"])
 
-    print("kDOP")
+    print(f"kDOP {object_name} {dimension}D {query} query")
     calculate_kDOP(gt_positive=gt_positive, gt_negative=gt_negative, metrics_registry=metrics_registry, dim=dim)
-    print_metrics(metrics_registry)
-    data_exporter.save_experiment_results(class_weight="kDOP", iteration="kDOP", metrics_registry=metrics_registry)
-
-    # export baselines results
-    data_exporter.export_results()
+    print_metrics(metrics_registry.metrics_registry["kDOP"])

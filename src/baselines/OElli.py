@@ -45,9 +45,6 @@ def is_inside_ellipsoid(points, params, dim):
 
 
 def calculate_OElli(gt_negative, gt_positive, metrics_registry, dim):
-    # clean metrics registry
-    metrics_registry.reset_metrics()
-
     covariance = torch.cov(gt_positive.T)
 
     eigen_values, eigen_vectors = torch.linalg.eig(covariance)
@@ -77,12 +74,13 @@ def calculate_OElli(gt_negative, gt_positive, metrics_registry, dim):
     false_positives, true_negative = is_inside_ellipsoid(gt_negative_transformed, ellipsoid_params, dim)
     true_positive, false_negatives = is_inside_ellipsoid(gt_positive_transformed, ellipsoid_params, dim)
 
-    metrics_registry.register_counter_metric("false_negative")
-    metrics_registry.register_counter_metric("false_positive")
-    metrics_registry.register_counter_metric("true_value")
-    metrics_registry.register_counter_metric("total_samples")
-
-    metrics_registry.add("false_negative", false_negatives)
-    metrics_registry.add("false_positive", false_positives)
-    metrics_registry.add("true_value", true_negative + true_positive)
-    metrics_registry.add("total_samples", false_negatives + false_positives + true_negative + true_positive)
+    # save OElli baseline results
+    metrics_registry.metrics_registry["OElli"] = {
+        "class weight": "N/A",
+        "iteration": "N/A",
+        "false negatives": false_negatives,
+        "false positives": false_positives,
+        "true values": true_negative + true_positive,
+        "total samples": false_negatives + false_positives + true_negative + true_positive,
+        "loss": "N/A"
+    }

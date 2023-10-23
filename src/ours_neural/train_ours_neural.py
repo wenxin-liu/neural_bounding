@@ -1,20 +1,20 @@
 import torch.optim as optim
 
-from src.data.data_exporter import DataExporter
 from src.loss.loss import BCELossWithClassWeights
+from src.metrics.helper import print_metrics
 from src.metrics.metrics_calculator import MetricsCalculator
-from src.metrics.metrics_registry import MetricsRegistry
 from src.wiring import get_source_data, get_training_data, get_model
 
 
-def train_ours_neural(object_name, query, dimension):
+def train_ours_neural(object_name, query, dimension, metrics_registry):
+    print(f"oursNeural {object_name} {dimension}D {query} query")
+
     # hyperparameters
     n_objects = 50_000
     n_samples = 1500 if dimension == 4 else 500
 
     # load data
     data = get_source_data(object_name=object_name, dimension=dimension)
-    data_exporter = DataExporter(f'{object_name}_{dimension}d_{query}_query', "ours_neural")
 
     # initialise model
     model = get_model(query=query, dimension=dimension)
@@ -32,7 +32,6 @@ def train_ours_neural(object_name, query, dimension):
 
     # instantiate count for early stopping
     count = 0
-    metrics_registry = MetricsRegistry()
 
     for iteration in range(total_iterations):
         features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
@@ -54,33 +53,40 @@ def train_ours_neural(object_name, query, dimension):
             print(f'Iteration: {iteration + 1}, Loss: {loss.item()}')
 
         if (iteration + 1) % evaluation_frequency == 0 or iteration == 0:
-            out = (model(features).cpu().detach() >= 0.5).float().numpy()
-            targets = targets.cpu().detach().numpy()
-
-            MetricsCalculator.calculate(metrics_registry, prediction=out, target=targets)
-            metrics = metrics_registry.get_metrics()
-
-            for key, value in metrics.items():
-                print(f"{key}: {value}")
-
-            data_exporter.save_experiment_results(class_weight=class_weight, metrics_registry=metrics_registry,
-                                                  iteration=iteration + 1, loss=loss)
+            prediction = (model(features).cpu().detach() >= 0.5).float().numpy()
+            target = targets.cpu().detach().numpy()
+            metrics = MetricsCalculator.calculate(prediction=prediction, target=target)
+            print_metrics(metrics)
 
         if (iteration + 1) % evaluation_frequency == 0:
-            metrics = metrics_registry.get_metrics()
+            prediction = (model(features).cpu().detach() >= 0.5).float().numpy()
+            target = targets.cpu().detach().numpy()
+            metrics = MetricsCalculator.calculate(prediction=prediction, target=target)
 
             # if convergence to FN 0 is not stable yet and still oscillating
             # let the model continue training
             # by resetting the count
-            if count != 0 and metrics["false_negative"] != 0.:
+            if count != 0 and metrics["false negatives"] != 0.:
                 count = 0
 
             # ensure that convergence to FN 0 is stable at a sufficiently large class weight
-            if metrics["false_negative"] == 0.:
+            if metrics["false negatives"] == 0.:
                 count += 1
 
             if count == 3:
-                print("early stopping")
+                # save final training results
+                metrics_registry.metrics_registry["oursNeural"] = {
+                    "class weight": class_weight,
+                    "iteration": iteration+1,
+                    "false negatives": metrics["false negatives"],
+                    "false positives": metrics["false positives"],
+                    "true values": metrics["true values"],
+                    "total samples": metrics["total samples"],
+                    "loss": f"{loss:.5f}"
+                }
+
+                # early stopping
+                print("early stopping\n")
                 break
 
         # schedule increases class weight by 20 every 500k iterations
@@ -97,4 +103,3 @@ def train_ours_neural(object_name, query, dimension):
             print("class weight", class_weight)
             print("BCE loss negative class weight", criterion.negative_class_weight)
 
-    data_exporter.export_results()

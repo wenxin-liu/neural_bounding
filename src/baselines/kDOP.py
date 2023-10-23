@@ -22,9 +22,6 @@ def calculate_4kDOP_normals(dim):
 
 
 def calculate_kDOP(gt_positive, gt_negative, metrics_registry, dim):
-    # clean metrics registry
-    metrics_registry.reset_metrics()
-
     mins = torch.empty(dim * 2, 1)
     maxs = torch.empty(dim * 2, 1)
 
@@ -76,12 +73,13 @@ def calculate_kDOP(gt_positive, gt_negative, metrics_registry, dim):
     # Count the number of True values in cumulative_conditions_fn
     false_negative = torch.sum(cumulative_conditions_fn).item()
 
-    metrics_registry.register_counter_metric("false_negative")
-    metrics_registry.register_counter_metric("false_positive")
-    metrics_registry.register_counter_metric("true_value")
-    metrics_registry.register_counter_metric("total_samples")
-
-    metrics_registry.add("false_negative", false_negative)
-    metrics_registry.add("false_positive", false_positive)
-    metrics_registry.add("true_value", gt_positive.shape[0] + gt_negative.shape[0] - false_negative - false_positive)
-    metrics_registry.add("total_samples", gt_positive.shape[0] + gt_negative.shape[0])
+    # save OElli baseline results
+    metrics_registry.metrics_registry["kDOP"] = {
+        "class weight": "N/A",
+        "iteration": "N/A",
+        "false negatives": false_negative,
+        "false positives": false_positive,
+        "true values": gt_positive.shape[0] + gt_negative.shape[0] - false_negative - false_positive,
+        "total samples": gt_positive.shape[0] + gt_negative.shape[0],
+        "loss": "N/A"
+    }

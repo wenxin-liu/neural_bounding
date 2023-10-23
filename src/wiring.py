@@ -66,17 +66,16 @@ def get_model(query, dimension):
     if dimension == 2 and query == "point":
         return OursNeural2D(dimension).to(device)
     elif dimension == 2 and query != "point":
-        return OursNeural2D(dimension*2).to(device)
+        return OursNeural2D(dimension * 2).to(device)
     elif dimension == 3 and query == "point":
         return OursNeural3D(dimension).to(device)
     elif dimension == 3 and query != "point":
-        return OursNeural3D(dimension*2).to(device)
+        return OursNeural3D(dimension * 2).to(device)
     elif dimension == 4 and query == "point":
         return OursNeural4D(dimension).to(device)
     elif dimension == 4 and query == "plane":
-        return OursNeural4DPlane(dimension*2).to(device)
+        return OursNeural4DPlane(dimension * 2).to(device)
     elif dimension == 4 and (query == "ray" or query == "box"):
-        return OursNeural4D(dimension*2).to(device)
+        return OursNeural4D(dimension * 2).to(device)
     else:
         raise ValueError(f"Unsupported task: {query} and {dimension}")
-
