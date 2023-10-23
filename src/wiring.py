@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from src import device
 from src.data.data_importer import load_data_2d, load_data_3d, load_data_4d
 from src.indicator.indicator import indicator
@@ -11,12 +13,13 @@ from src.regions.sample_rays import get_rays, sample_ray
 
 
 def get_source_data(object_name, dimension):
+    dataset_path = Path(__file__).resolve().parents[1] / 'resources' / f'{dimension}d'
     if dimension == 2:
-        return load_data_2d(object_name)
+        return load_data_2d(f'{dataset_path}/{object_name}.png')
     elif dimension == 3:
-        return load_data_3d(object_name)
+        return load_data_3d(f'{dataset_path}/{object_name}.binvox')
     elif dimension == 4:
-        return load_data_4d(object_name)
+        return load_data_4d(f'{dataset_path}/{object_name}.npy')
     else:
         raise ValueError(f"Unsupported dimension: {dimension}")
 
