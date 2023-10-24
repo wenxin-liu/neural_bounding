@@ -9,16 +9,6 @@ import matplotlib.pyplot as plt
 from src import device
 from src.data import binvox_rw
 
-from PIL import Image
-
-
-# methods to read image from file, convert to grayscale, then convert to binary
-# def load_data_2d(filename):
-#     filename = f'{filename}_32_rot90.png'
-#     image = Image.open(filename).convert('L')
-#
-#     # convert grayscale image into a numpy array
-#     return torch.from_numpy(np.where(np.array(image) >= 127.5, 1., 0.)).to(device)
 
 # function to load 2D data
 def load_data_2d(object_name):

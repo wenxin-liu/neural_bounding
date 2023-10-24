@@ -1,0 +1,14 @@
+name: neural_bounding
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch=2.1.0
+  - torchvision
+  - torchaudio
+  - cudatoolkit
+  - gdown
+  - matplotlib
+  - numpy
