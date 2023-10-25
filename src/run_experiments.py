@@ -7,7 +7,8 @@ from src.metrics.metrics_registry import MetricsRegistry
 from src.ours_kdop.train_ours_kdop import train_ours_kdop
 from src.ours_neural.train_ours_neural import train_ours_neural
 
-if __name__ == '__main__':
+
+def main():
     torch.manual_seed(0)
 
     # create the parser
@@ -63,3 +64,6 @@ if __name__ == '__main__':
     # save all results to file in the 'results' directory at the project root
     data_exporter.export_results(metrics_registry)
 
+
+if __name__ == '__main__':
+    main()

@@ -12,3 +12,4 @@ dependencies:
   - gdown
   - matplotlib
   - numpy
+  - pandas
