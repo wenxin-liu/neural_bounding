@@ -10,7 +10,7 @@ def train_ours_neural(object_name, query, dimension, metrics_registry):
     print(f"oursNeural {object_name} {dimension}D {query} query")
 
     # hyperparameters
-    n_objects = 50_000
+    n_regions = 50_000
     n_samples = 1500 if dimension == 4 else 500
 
     # load data
@@ -34,7 +34,7 @@ def train_ours_neural(object_name, query, dimension, metrics_registry):
     count = 0
 
     for iteration in range(total_iterations):
-        features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
+        features, targets = get_training_data(data=data, query=query, dimension=dimension, n_regions=n_regions,
                                               n_samples=n_samples)
 
         # forward pass

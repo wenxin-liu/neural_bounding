@@ -10,19 +10,14 @@ from src.wiring import get_source_data, get_training_data
 
 
 def calculate_baselines(object_name, query, dimension, metrics_registry):
-    if dimension == 2:
-        n_objects = 25_000
-    elif dimension == 3:
-        n_objects = 62_500
-    else:
-        n_objects = 100_000
-
+    n_regions = 50_000
     n_samples = 1500 if dimension == 4 else 500
+
     dim = dimension if query == 'point' else dimension*2
 
     data = get_source_data(object_name=object_name, dimension=dimension)
 
-    features, targets = get_training_data(data=data, query=query, dimension=dimension, n_objects=n_objects,
+    features, targets = get_training_data(data=data, query=query, dimension=dimension, n_regions=n_regions,
                                           n_samples=n_samples)
 
     result = extract_ground_truth_classes(features, targets)
