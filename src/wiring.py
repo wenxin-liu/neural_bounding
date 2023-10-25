@@ -13,7 +13,7 @@ from src.regions.sample_rays import get_rays, sample_ray
 
 
 def get_source_data(object_name, dimension):
-    dataset_path = Path(__file__).resolve().parents[1] / 'resources' / f'{dimension}d'
+    dataset_path = Path(__file__).resolve().parents[1] / 'data' / f'{dimension}d'
     if dimension == 2:
         return load_data_2d(f'{dataset_path}/{object_name}.png')
     elif dimension == 3:
