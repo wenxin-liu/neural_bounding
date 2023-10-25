@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from src import device
-from src.data.data_importer import load_data_2d, load_data_3d, load_data_4d
+from src.data.data_importer import load_data_2D, load_data_3D, load_data_4D
 from src.indicator.indicator import indicator
-from src.ours_neural.nn_model_2d import OursNeural2D
-from src.ours_neural.nn_model_3d import OursNeural3D
-from src.ours_neural.nn_model_4d import OursNeural4D, OursNeural4DPlane
+from src.ours_neural.nn_model_2D import OursNeural2D
+from src.ours_neural.nn_model_3D import OursNeural3D
+from src.ours_neural.nn_model_4D import OursNeural4D, OursNeural4DPlane
 from src.regions.sample_boxes import get_boxes, sample_boxes
 from src.regions.sample_planes import get_planes, sample_planes
 from src.regions.sample_points import get_points
@@ -13,13 +13,13 @@ from src.regions.sample_rays import get_rays, sample_ray
 
 
 def get_source_data(object_name, dimension):
-    dataset_path = Path(__file__).resolve().parents[1] / 'data' / f'{dimension}d'
+    dataset_path = Path(__file__).resolve().parents[1] / 'data' / f'{dimension}D'
     if dimension == 2:
-        return load_data_2d(f'{dataset_path}/{object_name}.png')
+        return load_data_2D(f'{dataset_path}/{object_name}.png')
     elif dimension == 3:
-        return load_data_3d(f'{dataset_path}/{object_name}.binvox')
+        return load_data_3D(f'{dataset_path}/{object_name}.binvox')
     elif dimension == 4:
-        return load_data_4d(f'{dataset_path}/{object_name}.npy')
+        return load_data_4D(f'{dataset_path}/{object_name}.npy')
     else:
         raise ValueError(f"Unsupported dimension: {dimension}")
 
