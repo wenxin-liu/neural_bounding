@@ -3,15 +3,15 @@ import torch.optim as optim
 
 
 # OElli - aka. oriented ellipsoid, non-axis-aligned ellipsoid or NonAAEllipsoid - implementation
-def generate_ellipsoid_params(gt_positive_transformed):
-    # use the mean of the transformed points as the centre
-    centre_coords = torch.mean(gt_positive_transformed, dim=0)
+def generate_ellipsoid_params(dimensions, centre=0.5, radius=0.3):
+    # create the centre coordinates
+    centre_coords = torch.full((dimensions,), centre, dtype=torch.float32)
 
-    # use the standard deviation of the transformed points as the axis lengths
-    # scaled down to allow room for the optimisation process to adjust the axis lengths
-    axis_lengths = torch.std(gt_positive_transformed, dim=0) * 0.8
+    # create the axis lengths (radius)
+    axis_lengths = torch.full((dimensions,), radius, dtype=torch.float32)
 
     # concatenate to form the ellipsoid parameters
+    # initialize ellipsoid parameters: [x_center, y_center, z_center, a, b, c]
     ellipsoid_params = torch.cat((centre_coords, axis_lengths))
 
     # set requires_grad to True for gradient-based optimization
@@ -54,7 +54,7 @@ def calculate_OElli(gt_negative, gt_positive, metrics_registry, dim):
     gt_positive_transformed = gt_positive @ eigen_vectors
     gt_negative_transformed = gt_negative @ eigen_vectors
 
-    ellipsoid_params = generate_ellipsoid_params(gt_positive_transformed)
+    ellipsoid_params = generate_ellipsoid_params(dimensions=dim)
     optimizer = optim.Adam([ellipsoid_params], lr=0.001)
 
     # Optimization loop
