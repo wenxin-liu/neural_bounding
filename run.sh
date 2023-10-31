@@ -3,6 +3,8 @@
 # add the root directory to PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$(pwd)
 
+
+# 2D experiments (2D point, ray, plane and box queries)
 # initialise objects for 2D spatial queries
 objects=("bunny" "chair" "dragon1" "dragon2" "house" "lucy" "star1" "star2" "teapot")
 
@@ -21,6 +23,8 @@ for object in "${objects[@]}"; do
   python3 src/run_experiments.py $box
 done
 
+
+# 3D experiments (3D point, ray, plane and box queries)
 # initialise objects for 3D spatial queries
 objects=("airplane" "armchair" "bunny" "camera" "car" "dragon" "sofa" "teapot" "teddy")
 
@@ -39,6 +43,8 @@ for object in "${objects[@]}"; do
   python3 src/run_experiments.py $box
 done
 
+
+# 4D experiments (4D point, ray, plane and box queries)
 # initialise objects for 4D spatial queries
 objects=("bunny" "teapot" "dragon")
 
@@ -59,6 +65,7 @@ done
 
 # wait for all background jobs to complete
 wait
+
 
 # make Table 1 from the results of the experiments above
 python3 src/make_table1.py

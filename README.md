@@ -19,7 +19,7 @@ inception. In this work, we study the use of neural networks as bounding volumes
 which
 so far has primarily been considered a problem of computational geometry, can be redefined as a problem of learning to
 classify
-space into free and empty. This learning-based approach is particularly advantageous in high-dimensional spaces, such as
+space into free or occupied. This learning-based approach is particularly advantageous in high-dimensional spaces, such as
 animated scenes with complex queries, where neural networks are known to excel. However, unlocking neural bounding
 requires
 a twist: allowing – but also limiting – false positives, while ensuring that the number of false negatives is strictly
@@ -68,6 +68,33 @@ Once you have the prerequisites in place, follow these steps to set up the envir
    Then it calculates Table 1 of the paper using the above experiment results.
    <BR><BR>
    All results are saved as CSV files in `<project_root>/results`.
+
+## Data
+
+### Data Formats
+
+- **2D Data**: For 2D experiments (2D point, ray, plane, and box queries), we use PNG images of single natural objects in front of a transparent background. In these images, the alpha channel serves as a mask, defining the indicator function. We use a total of 9 such images.
+
+- **3D Data**: In 3D experiments (3D point, ray, plane, and box queries), we use 3D voxelizations in binvox format. We use 9 such voxelizations.
+
+- **4D Data**: For 4D experiments (4D point, ray, plane, and box queries), we investigate sets of animated objects. In these experiments, we randomly select shapes from our 3D data and create time-varying occupancy data by rotating them around their center. This results in a 4D tensor, where each element represents a 3D voxelization of the object at a specific point in time, saved in .npy format.
+
+### Using Your Own Data
+
+If you wish to apply this code to your own datasets, you can follow these steps:
+
+1. Ensure that your data is in a format compatible with the dimension you are working with (2D, 3D, or 4D).
+
+2. Place your custom data in the appropriate directories:
+   - For 2D data, add your PNG images to the `data/2D` directory.
+   - For 3D data, add your binvox voxelizations to the `data/3D` directory.
+   - For 4D data, prepare your 4D tensor in .npy format and save it in the `data/4D` directory.  
+
+3. Modify the `run.sh` script to include the file names of your custom data. 
+   - For example, if you have a 2D image named "bunny.png" and placed in the `data/2D` directory, modify the 2D section of `run.sh` to include `"bunny"` in the list of objects.  
+
+4. Follow the installation instructions in the above section.
+
 
 ## Citation
 
