@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+README.md
+data/
+docs/
+environment.yml
+results/
+results_old/
+run.sh
+src/
+
