@@ -7,6 +7,11 @@
     <meta name="keywords" content="computer graphics, computer vision, machine learning, neural networks">
     <meta name="author" content="Wenxin Liu, Michael Fischer, Paul D. Yoo, Tobias Ritschel">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+
     <title>Neural Bounding</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -57,22 +62,22 @@
 
 
         <div class="section-title col-12">Demo 1</div>
-        <div class="row">
+        <div class="row mb-3 col-12">
             <div class="col-md-6 flex-grow-1 d-flex justify-content-center">
-                <div class="col-md-10" id="selectedValue">
+                <div class="col-md-10" id="demo_1_selectedValue">
                     <img src="assets/demos/jellyfish/jellyfish_oursneural.png"
                          alt="2D point oursneural method for object jellyfish" class="img-fluid">
                 </div>
             </div>
 
-            <div class="col-md-auto d-flex flex-column align-content-between">
+            <div class="col-md-3 d-flex flex-column align-content-between">
                 <form>
                     <div class="row col-md-auto col-sm-6 mb-5">
                         <div class="col">
                             <fieldset>
-                                <legend class="form-label">Select an object:</legend>
+                                <legend class="form-label">Object:</legend>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="objects" id="jellyfish"
+                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="jellyfish"
                                            value="jellyfish"
                                            checked>
                                     <label class="form-check-label" for="jellyfish">
@@ -80,14 +85,14 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="objects" id="octopus"
+                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="octopus"
                                            value="octopus">
                                     <label class="form-check-label" for="octopus">
                                         octopus
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="objects"
+                                    <input class="form-check-input" type="radio" name="demo_1_objects"
                                            id="goldfish"
                                            value="goldfish">
                                     <label class="form-check-label" for="goldfish">
@@ -95,7 +100,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="objects"
+                                    <input class="form-check-input" type="radio" name="demo_1_objects"
                                            id="sea_snail"
                                            value="sea_snail">
                                     <label class="form-check-label" for="sea_snail">
@@ -109,60 +114,60 @@
                     <div class="row col-md-auto col-sm-6">
                         <div class="col">
                             <fieldset>
-                                <legend class="form-label">Select a method:</legend>
+                                <legend class="form-label">Method:</legend>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods"
-                                           id="oursneural"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods"
+                                           id="demo_1_oursneural"
                                            value="oursneural" checked>
-                                    <label class="form-check-label" for="oursneural">
+                                    <label class="form-check-label" for="demo_1_oursneural">
                                         <strong>ours neural</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods"
-                                           id="ourskdop"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods"
+                                           id="demo_1_ourskdop"
                                            value="ourskdop">
-                                    <label class="form-check-label" for="ourskdop">
+                                    <label class="form-check-label" for="demo_1_ourskdop">
                                         <strong>ours KDop</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="aabox"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="aabox"
                                            value="aabox">
                                     <label class="form-check-label" for="aabox">
                                         AABox (axis-aligned bounding box)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="obox"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="obox"
                                            value="obox">
                                     <label class="form-check-label" for="obox">
                                         OBox (oriented bounding box)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="sphere"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="sphere"
                                            value="sphere">
                                     <label class="form-check-label" for="sphere">
                                         Sphere
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="aaelli"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="aaelli"
                                            value="aaelli">
                                     <label class="form-check-label" for="aaelli">
                                         AAElli (axis-aligned ellipsoid)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="oelli"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="oelli"
                                            value="oelli">
                                     <label class="form-check-label" for="oelli">
                                         OElli (oriented ellipsoid)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methods" id="kdop"
+                                    <input class="form-check-input" type="radio" name="demo_1_methods" id="kdop"
                                            value="kdop">
                                     <label class="form-check-label" for="kdop">
                                         KDop
@@ -176,18 +181,149 @@
             </div>
         </div>
 
+
+        <div class="section-title col-12">Demo - 3D animated, 360 rotation</div>
+        <div class="row mb-3">
+            <div class="section-body col-12 mb-5">
+                <img src="assets/demos/animation_3d/3d_results.png" class="img-fluid"
+                     alt="3d point for three objects - whale, squid and octopus - rotating 360 degrees">
+            </div>
+        </div>
+
+
+        <div class="section-title col-12">Demo 3</div>
+        <div class="row mb-3 col-12">
+            <div class="col-md-6 flex-grow-1 d-flex justify-content-center">
+                <div class="col-md-10" id="demo_3_selectedValue">
+                    <img src="assets/demos/puffer_fish/puffer_fish_oursneural_no_hit.png"
+                         alt="2D point oursneural method for object puffer fish, no hit conservative"
+                         class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex flex-column align-content-between">
+                <form>
+                    <div class="row col-md-auto col-sm-6 mb-5">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="form-label">Object:</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="puffer_fish"
+                                           value="puffer_fish"
+                                           checked>
+                                    <label class="form-check-label" for="puffer_fish">
+                                        puffer fish
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="sea_urchin"
+                                           value="sea_urchin">
+                                    <label class="form-check-label" for="sea_urchin">
+                                        sea urchin
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="starfish"
+                                           value="starfish">
+                                    <label class="form-check-label" for="starfish">
+                                        starfish
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="parrot_fish"
+                                           value="parrot_fish">
+                                    <label class="form-check-label" for="parrot_fish">
+                                        parrot fish
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-auto col-sm-6 mb-5">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="form-label">Method:</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_methods"
+                                           id="demo_3_oursneural"
+                                           value="oursneural" checked>
+                                    <label class="form-check-label" for="demo_3_oursneural">
+                                        <strong>ours neural</strong>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_methods"
+                                           id="demo_3_ourskdop"
+                                           value="ourskdop">
+                                    <label class="form-check-label" for="demo_3_ourskdop">
+                                        <strong>ours KDop</strong>
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-auto col-sm-6">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="form-label">Conservativeness:</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_conservativeness"
+                                           id="hit_conservative"
+                                           value="hit">
+                                    <label class="form-check-label" for="hit_conservative">
+                                        hit conservative
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_conservativeness"
+                                           id="no_hit_conservative"
+                                           value="no_hit"
+                                           checked>
+                                    <label class="form-check-label" for="no_hit_conservative">
+                                        no hit conservative
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
     document.querySelectorAll('.form-check-input').forEach(function (radio) {
         radio.addEventListener('change', function () {
-            const selectedMethod = document.querySelector('input[name="methods"]:checked').value;
-            const selectedObject = document.querySelector('input[name="objects"]:checked').value;
+            const selectedMethod = document.querySelector('input[name="demo_1_methods"]:checked').value;
+            const selectedObject = document.querySelector('input[name="demo_1_objects"]:checked').value;
 
             const imageUrl = `assets/demos/${selectedObject}/${selectedObject}_${selectedMethod}.png`;
 
-            document.getElementById('selectedValue').innerHTML = `<img src="${imageUrl}" alt="Selected Image" class="img-fluid">`;
+            document.getElementById('demo_1_selectedValue').innerHTML = `<img src="${imageUrl}" alt="Selected Image" class="img-fluid">`;
+        });
+    });
+</script>
+
+<script>
+    document.querySelectorAll('.form-check-input').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            const selectedMethod = document.querySelector('input[name="demo_3_methods"]:checked').value;
+            const selectedObject = document.querySelector('input[name="demo_3_objects"]:checked').value;
+            const selectedConservativeness = document.querySelector('input[name="demo_3_conservativeness"]:checked').value;
+
+            const imageUrl = `assets/demos/${selectedObject}/${selectedObject}_${selectedMethod}_${selectedConservativeness}.png`;
+
+            document.getElementById('demo_3_selectedValue').innerHTML = `<img src="${imageUrl}" alt="Selected Image" class="img-fluid">`;
         });
     });
 </script>
