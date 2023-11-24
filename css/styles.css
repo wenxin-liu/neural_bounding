@@ -1,4 +1,4 @@
-body {
+body, legend {
     font-family: 'Arial', sans-serif;
     font-size: 16px;
 }
@@ -7,8 +7,21 @@ section {
     margin: 0 0 30px 0;
 }
 
+.section-title{
+    font-size: 2rem;
+    margin:15px 0;
+}
+
+.form-check{
+    margin: 0 0 15px 0;
+}
+
+.form-label{
+    margin: 0 0 20px 0;
+}
+
 #title{
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     margin:0 0 20px 0;
 }
 
@@ -22,7 +35,6 @@ section {
     margin:0 0 15px 0;
 }
 
-#abstract-title{
-    font-size: 2rem;
-    margin:15px 0;
+.demo1-container {
+    background-color: bisque;
 }
