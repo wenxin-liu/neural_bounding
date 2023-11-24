@@ -9,7 +9,7 @@ Wenxin Liu<sup>1</sup>, Michael Fischer<sup>2</sup>, Paul D. Yoo<sup>1</sup>, To
 arXiv preprint arXiv:2310.06822  
 2023
 
-![Paper teaser image](docs/Teaser.jpg)
+![Paper teaser image](docs/teaser.png)
 
 ## Overview
 
