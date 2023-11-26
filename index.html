@@ -62,59 +62,27 @@
 
 
         <div class="section-title col-12">Demo 1</div>
+        <div class="section-body mb-5 col-12">
+            <video loop autoplay muted class="full-width">
+                <source src="assets/videos/starfish.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         <div class="row mb-3 col-12">
             <div class="col-md-6 flex-grow-1 d-flex justify-content-center align-items-center">
                 <div class="col-md-10" id="demo_1_selectedValue">
-                    <img src="assets/demos/jellyfish/jellyfish_oursneural.png"
+                    <img src="assets/demos/goldfish/goldfish_oursneural.png"
                          alt="2D point oursneural method for object jellyfish" class="img-fluid">
                 </div>
             </div>
 
             <div class="col-auto d-flex flex-column align-content-between">
                 <form>
+
                     <div class="row col-md-auto col-sm-6 mb-5">
                         <div class="col">
                             <fieldset>
-                                <legend class="form-label">Object:</legend>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="jellyfish"
-                                           value="jellyfish"
-                                           checked>
-                                    <label class="form-check-label" for="jellyfish">
-                                        jellyfish
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="octopus"
-                                           value="octopus">
-                                    <label class="form-check-label" for="octopus">
-                                        octopus
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_1_objects"
-                                           id="goldfish"
-                                           value="goldfish">
-                                    <label class="form-check-label" for="goldfish">
-                                        goldfish
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_1_objects"
-                                           id="sea_snail"
-                                           value="sea_snail">
-                                    <label class="form-check-label" for="sea_snail">
-                                        sea snail
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-
-                    <div class="row col-md-auto col-sm-6">
-                        <div class="col">
-                            <fieldset>
-                                <legend class="form-label">Method:</legend>
+                                <legend class="form-label">Select a method:</legend>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="demo_1_methods"
                                            id="demo_1_oursneural"
@@ -177,8 +145,53 @@
                         </div>
                     </div>
 
+                    <div class="row col-md-auto col-sm-6">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="form-label">Select an object:</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_1_objects"
+                                           id="goldfish"
+                                           value="goldfish" checked>
+                                    <label class="form-check-label" for="goldfish">
+                                        goldfish
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_1_objects"
+                                           id="sea_snail"
+                                           value="sea_snail">
+                                    <label class="form-check-label" for="sea_snail">
+                                        sea snail
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="octopus"
+                                           value="octopus">
+                                    <label class="form-check-label" for="octopus">
+                                        octopus
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_1_objects" id="jellyfish"
+                                           value="jellyfish">
+                                    <label class="form-check-label" for="jellyfish">
+                                        jellyfish
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
                 </form>
             </div>
+        </div>
+
+
+        <div class="section-title col-12">Model</div>
+        <div class="section-body col-12 mb-5">
+            <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
+                 class="img-fluid">
         </div>
 
 
@@ -203,51 +216,11 @@
 
             <div class="col-md-3 ps-4 d-flex flex-column align-items-between">
                 <form>
-                    <div class="row col-md-auto col-sm-6 mb-5">
-                        <div class="col">
-                            <fieldset>
-                                <legend class="form-label">Object:</legend>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_3_objects"
-                                           id="puffer_fish"
-                                           value="puffer_fish"
-                                           checked>
-                                    <label class="form-check-label" for="puffer_fish">
-                                        puffer fish
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_3_objects"
-                                           id="sea_urchin"
-                                           value="sea_urchin">
-                                    <label class="form-check-label" for="sea_urchin">
-                                        sea urchin
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_3_objects"
-                                           id="starfish"
-                                           value="starfish">
-                                    <label class="form-check-label" for="starfish">
-                                        starfish
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_3_objects"
-                                           id="parrot_fish"
-                                           value="parrot_fish">
-                                    <label class="form-check-label" for="parrot_fish">
-                                        parrot fish
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
 
                     <div class="row col-md-auto col-sm-6 mb-5">
                         <div class="col">
                             <fieldset>
-                                <legend class="form-label">Method:</legend>
+                                <legend class="form-label">Select a method:</legend>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="demo_3_methods"
                                            id="demo_3_oursneural"
@@ -268,18 +241,10 @@
                         </div>
                     </div>
 
-                    <div class="row col-md-auto col-sm-6">
+                    <div class="row col-md-auto col-sm-6 mb-5">
                         <div class="col">
                             <fieldset>
-                                <legend class="form-label">Conservativeness:</legend>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="demo_3_conservativeness"
-                                           id="hit_conservative"
-                                           value="hit">
-                                    <label class="form-check-label" for="hit_conservative">
-                                        hit conservative
-                                    </label>
-                                </div>
+                                <legend class="form-label">Select conservativeness:</legend>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="demo_3_conservativeness"
                                            id="no_hit_conservative"
@@ -289,6 +254,47 @@
                                         no hit conservative
                                     </label>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_conservativeness"
+                                           id="hit_conservative"
+                                           value="hit">
+                                    <label class="form-check-label" for="hit_conservative">
+                                        hit conservative
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-auto col-sm-6">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="form-label">Select an object:</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="puffer_fish"
+                                           value="puffer_fish"
+                                           checked>
+                                    <label class="form-check-label" for="puffer_fish">
+                                        puffer fish
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="sea_urchin"
+                                           value="sea_urchin">
+                                    <label class="form-check-label" for="sea_urchin">
+                                        sea urchin
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="demo_3_objects"
+                                           id="parrot_fish"
+                                           value="parrot_fish">
+                                    <label class="form-check-label" for="parrot_fish">
+                                        parrot fish
+                                    </label>
+                                </div>
                             </fieldset>
                         </div>
                     </div>
@@ -296,6 +302,14 @@
                 </form>
 
             </div>
+        </div>
+
+        <div class="section-title col-12">BVH</div>
+        <div class="section-body mb-5 col-12">
+            <video loop autoplay muted style="width:50%">
+                <source src="assets/videos/bvh.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
         <div class="section-title col-12">Citation</div>

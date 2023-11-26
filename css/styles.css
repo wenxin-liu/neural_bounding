@@ -11,6 +11,10 @@ pre {
     margin: 0;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .section-title{
     font-size: 2rem;
     margin:15px 0;
