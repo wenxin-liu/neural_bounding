@@ -50,7 +50,7 @@
 
         <img src="assets/images/teaser.png" alt="Neural Bounding teaser image" class="img-fluid">
         <div class="section-title col-12">Abstract</div>
-        <div class="section-body mb-5 col-12">
+        <div class="section-body mb-3 col-12">
             Bounding volumes are an established concept in computer graphics and vision tasks but have seen little
             change since their early inception. In this work, we study the use of neural networks as bounding
             volumes. Our key observation is that bounding, which so far has primarily been considered a problem of
@@ -65,7 +65,7 @@
 
 
         <div class="section-title col-12">Summary</div>
-        <div class="section-body mb-5 col-12">
+        <div class="section-body mb-3 col-12">
             We learn neural representations of bounding volumes. The key is a dynamically-weighted asymmetric loss function, which ensures zero false negatives, in order words, no truncated geometry, while keeping false positives minimal for precise bounding. Our approach is adaptable to any dimension and suitable for both point and range queries. It can also be applied to optimise non-neural representations, such as k-DOPs (<em>k</em> discrete oriented polytopes). In results across diverse scenes using 2D, 3D, and 4D queries, our method outperforms traditional bounding methods, achieving up to 10x tighter bounding.
         </div>
 
@@ -218,22 +218,22 @@
             <p>
                 In our implementation, we use small MLPs (Multi-Layer Perceptrons) to achieve faster training and inference. For 2D data, we sample images; for 3D, voxel grids; and for 4D, animated objects are represented as 3D voxel grids stacked in 4D tensors.
             </p>
-        </div>
-        <div class="section-body col-12 mb-5">
-            <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
-                 class="img-fluid">
+            <p>
+                <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
+                     class="img-fluid">
+            </p>
         </div>
 
 
         <div class="section-title col-12">Demo 2 - 3D animated, 360 rotation</div>
         <div class="section-body col-12 mb-3">
-            We show that our methods generalise across dimensions. Here, we show results for 3D point queries, compared to baseline methods.
-        </div>
-        <div class="row mb-3">
-            <div class="section-body col-12 mb-5">
+            <p>
+                We show that our methods generalise across dimensions. Here, we show results for 3D point queries, compared to baseline methods.
+            </p>
+            <p>
                 <img src="assets/demos/animation_3d/3d_results.png" class="img-fluid"
                      alt="3d point for three objects - whale, squid and octopus - rotating 360 degrees">
-            </div>
+            </p>
         </div>
 
 
@@ -347,7 +347,7 @@
         </div>
 
         <div class="section-title col-12">Bounding Volume Hierarchy</div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <div class="col-md-6">
                 <video loop autoplay muted style="width: 100%;">
                     <source src="assets/videos/bvh.mp4" type="video/mp4">
