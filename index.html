@@ -47,7 +47,7 @@
 
         <img src="assets/images/teaser.png" alt="Neural Bounding teaser image" class="img-fluid">
         <div class="section-title col-12">Abstract</div>
-        <div class="section-body mb-5">
+        <div class="section-body mb-5 col-12">
             Bounding volumes are an established concept in computer graphics and vision tasks but have seen little
             change since their early inception. In this work, we study the use of neural networks as bounding
             volumes. Our key observation is that bounding, which so far has primarily been considered a problem of
@@ -61,12 +61,25 @@
         </div>
 
 
-        <div class="section-title col-12">Demo 1</div>
+        <div class="section-title col-12">Summary</div>
         <div class="section-body mb-5 col-12">
+            We learn neural representations of bounding volumes. The key is a dynamically-weighted asymmetric loss function, which ensures zero false negatives, in order words, no truncated geometry, while keeping false positives minimal for precise bounding. Our approach is adaptable to any dimension and suitable for both point and range queries. It can also be applied to optimise non-neural representations, such as k-DOPs (<em>k</em> discrete oriented polytopes). In results across diverse scenes using 2D, 3D, and 4D queries, our method outperforms traditional bounding methods, achieving up to 10x tighter bounding.
+        </div>
+
+
+        <div class="section-title col-12">Comparison of Our Approach vs. Baselines</div>
+        <div class="section-body mb-3 col-12">
             <video loop autoplay muted class="full-width">
                 <source src="assets/videos/starfish.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+        </div>
+        <div class="section-body mb-3 col-12">
+            L-R: While AABox, Sphere and kDOP bounding are not tight, Neural - common neural networks - cut off parts of the geometry (see edges of the starfish). Ours Neural - our neural networks - are both tight bounding and conservative (no truncated geometry).
+
+            <BR><BR>
+
+            In addition to Ours Neural, our approach can also optimise non-neural representations such as k-DOP, which we call Ours kDOP. The interactive demo below uses 2D point queries to show a comparison of our methods: <strong>Ours Neural</strong> and <strong>Ours kDOP</strong>, shown in bold, vs. six baseline methods, on four different objects:
         </div>
         <div class="row mb-3 col-12">
             <div class="col-md-6 flex-grow-1 d-flex justify-content-center align-items-center">
@@ -76,10 +89,10 @@
                 </div>
             </div>
 
-            <div class="col-auto d-flex flex-column align-content-between">
+            <div class="col-4 d-flex flex-column align-content-between">
                 <form>
 
-                    <div class="row col-md-auto col-sm-6 mb-5">
+                    <div class="row col-md-auto col-sm-6 mb-5 form-background p-2">
                         <div class="col">
                             <fieldset>
                                 <legend class="form-label">Select a method:</legend>
@@ -88,7 +101,7 @@
                                            id="demo_1_oursneural"
                                            value="oursneural" checked>
                                     <label class="form-check-label" for="demo_1_oursneural">
-                                        <strong>ours neural</strong>
+                                        <strong>Ours Neural</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
@@ -96,7 +109,7 @@
                                            id="demo_1_ourskdop"
                                            value="ourskdop">
                                     <label class="form-check-label" for="demo_1_ourskdop">
-                                        <strong>ours KDop</strong>
+                                        <strong>Ours kDOP</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
@@ -145,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="row col-md-auto col-sm-6">
+                    <div class="row col-md-auto col-sm-6 form-background p-2">
                         <div class="col">
                             <fieldset>
                                 <legend class="form-label">Select an object:</legend>
@@ -188,7 +201,10 @@
         </div>
 
 
-        <div class="section-title col-12">Model</div>
+        <div class="section-title col-12">Model Architecture</div>
+        <div class="section-body mb-3 col-12">
+            We use a dynamic weighting schedule and an asymmetric loss function to achieve conservative results using simple and lightweight MLPs. We show that we can also optimise kDOP like this.
+        </div>
         <div class="section-body col-12 mb-5">
             <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
                  class="img-fluid">
@@ -196,6 +212,9 @@
 
 
         <div class="section-title col-12">Demo 2 - 3D animated, 360 rotation</div>
+        <div class="section-body col-12 mb-3">
+            We show that our methods generalise across dimensions. Here, we show results for 3D point queries, compared to baseline methods.
+        </div>
         <div class="row mb-3">
             <div class="section-body col-12 mb-5">
                 <img src="assets/demos/animation_3d/3d_results.png" class="img-fluid"
@@ -204,7 +223,10 @@
         </div>
 
 
-        <div class="section-title col-12">Demo 3</div>
+        <div class="section-title col-12">Conservativeness</div>
+        <div class="section-body col-12 mb-3">
+            We introduce the additional concept of no hit conservativeness, which is useful in applications like sphere tracing.
+        </div>
         <div class="row mb-3 col-12">
             <div class="col-md-6 flex-grow-1 d-flex justify-content-center align-items-center">
                 <div class="col-md-10" id="demo_3_selectedValue">
@@ -214,13 +236,14 @@
                 </div>
             </div>
 
-            <div class="col-md-3 ps-4 d-flex flex-column align-items-between">
+            <div class="col-md-3 d-flex flex-column align-items-between">
                 <form>
 
-                    <div class="row col-md-auto col-sm-6 mb-5">
+                    <div class="row col-md-auto col-sm-6 mb-5 form-background p-2">
                         <div class="col">
                             <fieldset>
                                 <legend class="form-label">Select a method:</legend>
+
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="demo_3_methods"
                                            id="demo_3_oursneural"
@@ -241,7 +264,7 @@
                         </div>
                     </div>
 
-                    <div class="row col-md-auto col-sm-6 mb-5">
+                    <div class="row col-md-auto col-sm-6 mb-5 form-background p-2">
                         <div class="col">
                             <fieldset>
                                 <legend class="form-label">Select conservativeness:</legend>
@@ -266,7 +289,7 @@
                         </div>
                     </div>
 
-                    <div class="row col-md-auto col-sm-6">
+                    <div class="row col-md-auto col-sm-6 form-background p-2">
                         <div class="col">
                             <fieldset>
                                 <legend class="form-label">Select an object:</legend>
@@ -304,12 +327,22 @@
             </div>
         </div>
 
-        <div class="section-title col-12">BVH</div>
-        <div class="section-body mb-5 col-12">
-            <video loop autoplay muted style="width:50%">
-                <source src="assets/videos/bvh.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+        <div class="section-title col-12">Bounding Volume Hierarchy</div>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <video loop autoplay muted style="width: 100%;">
+                    <source src="assets/videos/bvh.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="col-md-6">
+                We also show that we can stack our NNs into a hierarchy to conservatively learn a bounding volume hierarchy.
+
+                <br><br>
+
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis consequat nibh, vitae congue magna tempus in. In pulvinar ac nisl in laoreet. Curabitur tristique tempor ipsum, at pretium felis dictum et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse mauris risus, consequat in.
+
+            </div>
         </div>
 
         <div class="section-title col-12">Citation</div>

@@ -11,6 +11,15 @@ pre {
     margin: 0;
 }
 
+.form-check-input {
+    border-color: #a3a3a3; /* Black border color */
+    border-width: 2px;
+}
+
+.form-background{
+    background-color: #f0f0f0;
+}
+
 .full-width {
     width: 100%;
 }
