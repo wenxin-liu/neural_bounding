@@ -3,11 +3,14 @@
 PyTorch implementation of [Neural Bounding](https://arxiv.org/abs/2310.06822), using neural networks to represent
 bounding volumes and learning conservative space classification.
 
-[Neural Bounding](https://arxiv.org/abs/2310.06822)  
+Neural Bounding  
 Wenxin Liu<sup>1</sup>, Michael Fischer<sup>2</sup>, Paul D. Yoo<sup>1</sup>, Tobias Ritschel<sup>2</sup>  
 <sup>1</sup>Birkbeck, University of London, <sup>2</sup>University College London  
 arXiv preprint arXiv:2310.06822  
 2023
+
+[[Paper](https://arxiv.org/abs/2310.06822)]
+[[Project Page](https://wenxin-liu.github.io/neural_bounding)]
 
 ![Paper teaser image](docs/teaser.png)
 
