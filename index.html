@@ -18,6 +18,9 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -201,9 +204,20 @@
         </div>
 
 
-        <div class="section-title col-12">Model Architecture</div>
+        <div class="section-title col-12">How Does Our Approach Work?</div>
         <div class="section-body mb-3 col-12">
-            We use a dynamic weighting schedule and an asymmetric loss function to achieve conservative results using simple and lightweight MLPs. We show that we can also optimise kDOP like this.
+            <p>
+                Input is an \(n\)-dimensional indicator function \( f(x) ∈ R^n → \{0,1\} \) that returns 1 inside and on the surface of the object, and 0 everywhere else.
+
+                To support both point and range queries, on top of the indicator function \( f(x) \), we define a query function \( g(r) ∈ R^n → \{0,1\} \) that is 1 if the indicator function returns 1 for at least one point in the region \( r \).
+
+                We then approximate \( g(r) \) using another function \( h_{\theta}(r) \) with learnable parameters \( \theta \). The training objective \( L \) is no cost if \( g(r) = h_{\theta}(r) \), otherwise asymmetric costs are applied if false negative: \( g(r) = 1 \) and \( h_{\theta}(r) = 0 \), or false positive: \( g(r) = 0 \) and \( h_{\theta}(r) = 1 \).
+
+                We approximate \( L \) via a variant of a weighted binary cross entropy loss.
+            </p>
+            <p>
+                In our implementation, we use small MLPs (Multi-Layer Perceptrons) to achieve faster training and inference. For 2D data, we sample images; for 3D, voxel grids; and for 4D, animated objects are represented as 3D voxel grids stacked in 4D tensors.
+            </p>
         </div>
         <div class="section-body col-12 mb-5">
             <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
@@ -223,9 +237,14 @@
         </div>
 
 
-        <div class="section-title col-12">Conservativeness</div>
+        <div class="section-title col-12">Two Types of Conservativeness</div>
         <div class="section-body col-12 mb-3">
-            We introduce the additional concept of no hit conservativeness, which is useful in applications like sphere tracing.
+            <p>
+                We introduce a variant of our approach that inverts the asymmetric costs associated with false negatives and false positives. Contrasting with our original approach that includes both definite and potential areas, this variant includes only areas that are definitively inside the object, excluding ambiguous regions. This is useful for tasks like sphere tracing where avoiding boundary overestimation is important.
+            </p>
+            <p>
+                In the following interactive demo, we explore these two types of conservativeness - hit conservativeness, which is the original approach and no-hit conservativeness, which is the variant approach. We show that these two types of conservativeness can be applied in the optimisation of both neural (<strong>Ours Neural</strong>) and non-neural (<strong>Ours kDOP</strong>) representations:
+            </p>
         </div>
         <div class="row mb-3 col-12">
             <div class="col-md-6 flex-grow-1 d-flex justify-content-center align-items-center">
@@ -249,7 +268,7 @@
                                            id="demo_3_oursneural"
                                            value="oursneural" checked>
                                     <label class="form-check-label" for="demo_3_oursneural">
-                                        <strong>ours neural</strong>
+                                        <strong>Ours Neural</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
@@ -257,7 +276,7 @@
                                            id="demo_3_ourskdop"
                                            value="ourskdop">
                                     <label class="form-check-label" for="demo_3_ourskdop">
-                                        <strong>ours KDop</strong>
+                                        <strong>Ours kDOP</strong>
                                     </label>
                                 </div>
                             </fieldset>
