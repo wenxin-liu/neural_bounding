@@ -216,7 +216,7 @@
                 We approximate \( L \) via a variant of a weighted binary cross entropy loss.
             </p>
             <p>
-                In our implementation, we use small MLPs (Multi-Layer Perceptrons) to achieve faster training and inference. For 2D data, we sample images; for 3D, voxel grids; and for 4D, animated objects are represented as 3D voxel grids stacked in 4D tensors.
+                In our implementation, we use small MLPs (Multi-Layer Perceptrons) to achieve faster training and inference. For 2D data, we sample images; for 3D, voxel grids; and for 4D, animated objects represented as 3D voxel grids stacked in 4D tensors.
             </p>
             <p>
                 <img src="assets/images/red_fish_nn.png" alt="comparison of symmetric vs asymmetric neural network results"
@@ -359,7 +359,7 @@
                     We show that we can also stack our neural boundings into hierarchies, similar to classic bounding boxes in bounding volume hierarchies (BVH).
                 </p>
                 <p>
-                    The results show that 1) each level in our neural BVH bounds its object group tightly 2) each level is more tight-fitting compared to classic bounding boxes, achieving improved accuracy over traditional BVH.
+                    The results show that 1) our neural BVH does not cut off any geometry features and is fully conservative 2) each level in our neural BVH bounds its object group tightly 3) each level is more tight-fitting compared to classic bounding boxes, achieving improved accuracy over traditional BVH.
                 </p>
             </div>
         </div>
