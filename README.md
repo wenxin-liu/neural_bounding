@@ -88,12 +88,15 @@ If you wish to apply this code to your own datasets, you can follow these steps:
 ## Citation
 
 ```bibtex
-@article{liu2023neural,
-     title={Neural Bounding},
-     author={Liu, Wenxin and Fischer, Michael and Yoo, Paul D. and Ritschel, Tobias},
-     year={2023},
-     eprint={arXiv:2310.06822},
-     archivePrefix={arXiv},
-     primaryClass={cs.GR}
+@inproceedings{liu2024neural,
+   author = {Stephanie Wenxin Liu and Michael Fischer and Paul D. Yoo and Tobias Ritschel},
+   title = {Neural Bounding},
+   booktitle = {Proceedings of the Special Interest Group on Computer Graphics and Interactive Techniques Conference Papers '24 (SIGGRAPH Conference Papers '24)},
+   year = {2024},
+   location = {Denver, CO, USA},
+   publisher = {ACM},
+   address = {New York, NY, USA},
+   pages = {10},
+   doi = {10.1145/3641519.3657442}
 }
 ```
