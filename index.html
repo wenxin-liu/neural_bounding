@@ -37,7 +37,13 @@
             <div><sup>1</sup> Birkbeck, University of London</div>
             <div><sup>2</sup> University College London</div>
         </div>
-        <div class="col-lg-6 col-md-8 col-sm-9 d-flex justify-content-evenly mb-5" id="supplementary-materials">
+        <div class="col-lg-6 col-md-8 col-sm-9 d-flex justify-content-evenly mb-5" id="publication">
+            <div>Published at <a href="https://s2024.siggraph.org/" target="_blank">SIGGRAPH 2024</a> (Conference Track)</div>
+        </div>
+
+        <img src="assets/images/teaser.png" alt="Neural Bounding teaser image" class="img-fluid">
+
+        <div class="col-lg-6 col-md-8 col-sm-9 d-flex justify-content-evenly" id="supplementary-materials">
             <div class="d-flex align-items-center">
                 <img src="assets/images/paper.png" alt="icon for an article">
                 <a href="https://arxiv.org/abs/2310.06822" target="_blank" class="ms-2">Paper</a>
@@ -48,7 +54,6 @@
             </div>
         </div>
 
-        <img src="assets/images/teaser.png" alt="Neural Bounding teaser image" class="img-fluid">
         <div class="section-title col-12">Abstract</div>
         <div class="section-body mb-3 col-12">
             Bounding volumes are an established concept in computer graphics and vision tasks but have seen little change since their early inception. In this work, we study the use of neural networks as bounding volumes. Our key observation is that bounding, which so far has primarily been considered a problem of computational geometry, can be redefined as a problem of learning to classify space into free or occupied. This learning-based approach is particularly advantageous in high-dimensional spaces, such as animated scenes with complex queries, where neural networks are known to excel. However, unlocking neural bounding requires a twist: allowing -- but also limiting -- false positives, while ensuring that the number of false negatives is strictly zero. We enable such tight and conservative results using a dynamically-weighted asymmetric loss function. Our results show that our neural bounding produces up to an order of magnitude fewer false positives than traditional methods. In addition, we propose an extension of our bounding method using early exits that accelerates query speeds by 25%. We also demonstrate that our approach is applicable to non-deep learning models that train within seconds. Our project page is at: <a href="https://wenxin-liu.github.io/neural_bounding/">https://wenxin-liu.github.io/neural_bounding/</a>.
