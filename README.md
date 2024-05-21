@@ -4,10 +4,9 @@ PyTorch implementation of [Neural Bounding](https://arxiv.org/abs/2310.06822), u
 bounding volumes and learning conservative space classification.
 
 Neural Bounding  
-Wenxin Liu<sup>1</sup>, Michael Fischer<sup>2</sup>, Paul D. Yoo<sup>1</sup>, Tobias Ritschel<sup>2</sup>  
+Stephanie Wenxin Liu<sup>1</sup>, Michael Fischer<sup>2</sup>, Paul D. Yoo<sup>1</sup>, Tobias Ritschel<sup>2</sup>  
 <sup>1</sup>Birkbeck, University of London, <sup>2</sup>University College London  
-arXiv preprint arXiv:2310.06822  
-2023
+Published at [SIGGRAPH 2024](https://s2024.siggraph.org/) (Conference Track)
 
 [[Paper](https://arxiv.org/abs/2310.06822)]
 [[Project Page](https://wenxin-liu.github.io/neural_bounding)]
@@ -16,20 +15,7 @@ arXiv preprint arXiv:2310.06822
 
 ## Overview
 
-Bounding volumes are an established concept in computer graphics and vision tasks but have seen little change since
-their early
-inception. In this work, we study the use of neural networks as bounding volumes. Our key observation is that bounding,
-which
-so far has primarily been considered a problem of computational geometry, can be redefined as a problem of learning to
-classify
-space into free or occupied. This learning-based approach is particularly advantageous in high-dimensional spaces, such as
-animated scenes with complex queries, where neural networks are known to excel. However, unlocking neural bounding
-requires
-a twist: allowing – but also limiting – false positives, while ensuring that the number of false negatives is strictly
-zero. We enable
-such tight and conservative results using a dynamically-weighted asymmetric loss function. Our results show that our
-neural
-bounding produces up to an order of magnitude fewer false positives than traditional methods.
+Bounding volumes are an established concept in computer graphics and vision tasks but have seen little change since their early inception. In this work, we study the use of neural networks as bounding volumes. Our key observation is that bounding, which so far has primarily been considered a problem of computational geometry, can be redefined as a problem of learning to classify space into free or occupied. This learning-based approach is particularly advantageous in high-dimensional spaces, such as animated scenes with complex queries, where neural networks are known to excel. However, unlocking neural bounding requires a twist: allowing -- but also limiting -- false positives, while ensuring that the number of false negatives is strictly zero. We enable such tight and conservative results using a dynamically-weighted asymmetric loss function. Our results show that our neural bounding produces up to an order of magnitude fewer false positives than traditional methods. In addition, we propose an extension of our bounding method using early exits that accelerates query speeds by 25%. We also demonstrate that our approach is applicable to non-deep learning models that train within seconds. Our project page is at: https://wenxin-liu.github.io/neural_bounding/.
 
 ## Installation
 
