@@ -68,10 +68,17 @@
 
         <div class="section-title col-12 col-lg-10 col-xl-8">Comparison of Our Approach vs. Baselines</div>
         <div class="section-body mb-3 col-12 col-lg-10 col-xl-8">
-            <video loop autoplay muted class="full-width">
+            <video id="starfish-all-methods" loop autoplay muted playsinline style="width: 100%;">
                 <source src="assets/videos/starfish.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+
+            <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var video = document.getElementById('starfish-all-methods');
+                        video.play();
+                    });
+            </script>
         </div>
         <div class="section-body mb-3 col-12 col-lg-10 col-xl-8">
             L-R: While AABox, Sphere and kDOP bounding are not tight, Neural - common neural networks - cut off parts of the geometry (see edges of the starfish). Ours Neural - our neural networks - are both tight bounding and conservative (no truncated geometry).
@@ -345,10 +352,17 @@
         <div class="section-title col-12 col-lg-10 col-xl-8">Bounding Volume Hierarchy</div>
         <div class="row mb-3 col-12 col-lg-10 col-xl-8">
             <div class="col-md-7">
-                <video loop autoplay muted style="width: 100%;">
+                <video id="bvh" loop autoplay muted playsinline style="width: 100%;">
                     <source src="assets/videos/bvh.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var video = document.getElementById('bvh');
+                        video.play();
+                    });
+                </script>
             </div>
             <div class="col-md-5">
                 <p>
