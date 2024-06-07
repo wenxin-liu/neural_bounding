@@ -11,6 +11,11 @@ pre {
     margin: 0;
 }
 
+.author, .affiliation, .publication {
+    text-align: center;
+    margin: 3px
+}
+
 .form-check-input {
     border-color: #a3a3a3;
     border-width: 2px;
@@ -44,17 +49,17 @@ pre {
 
 #authors{
     font-size: 1rem;
-    margin:0 0 15px 0;
+    margin:0 0 10px 0;
 }
 
 #affiliations{
     font-size: 1rem;
-    margin:0 0 15px 0;
+    margin:0 0 10px 0;
 }
 
 #supplementary-materials{
     font-size: 1rem;
-    margin:20px 0 15px 0;
+    margin:15px 0 15px 0;
 }
 
 .demo1-container {
