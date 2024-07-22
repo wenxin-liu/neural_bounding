@@ -233,9 +233,20 @@
             <p>
                 We show that our methods generalise across dimensions. Here, we show results for 3D point queries, compared to baseline methods.
             </p>
+        </div>
+        <div class="section-body col-12 col-lg-10 col-xl-8 mb-3">
             <p>
-                <img src="assets/demos/animation_3d/3d_results.png" class="img-fluid"
-                     alt="3d point for three objects - whale, squid and octopus - rotating 360 degrees">
+                <video id="results_3d" loop autoplay muted playsinline style="width: 100%;">
+                    <source src="assets/videos/rotation_3d.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var video = document.getElementById('results_3d');
+                        video.play();
+                    });
+            </script>
             </p>
         </div>
 
