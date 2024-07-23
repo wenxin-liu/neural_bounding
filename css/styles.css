@@ -15,6 +15,14 @@ pre {
     margin: 0;
 }
 
+.col-md-7 {
+    padding-left: 0 !important;
+}
+
+.col-md-5 {
+    padding-right: 0 !important;
+}
+
 .author, .affiliation, .publication {
     text-align: center;
     margin: 3px
