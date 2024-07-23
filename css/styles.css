@@ -1,6 +1,10 @@
-body, legend {
+html {
     font-family: 'Arial', sans-serif;
     font-size: 16px;
+}
+
+body, legend {
+    font-size: 1rem;
 }
 
 section {
@@ -69,4 +73,34 @@ pre {
 #citation {
     background-color: #eeedee;
     padding: 2rem 4rem;
+}
+
+#mb-5 * {
+    margin-bottom: 3rem !important;
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    font-size: 1rem;
+  }
+
+  #title{
+      font-size: 2.1rem;
+  }
+
+  .section-title{
+      font-size: 1.6rem;
+  }
+
+  .mb-5 {
+    margin-bottom: 0.7rem !important;
+  }
+
+  .col-md-7, .col-md-5 {
+    padding: 0 0 !important;
+  }
 }
