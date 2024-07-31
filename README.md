@@ -8,7 +8,7 @@ Stephanie Wenxin Liu<sup>1</sup>, Michael Fischer<sup>2</sup>, Paul D. Yoo<sup>1
 <sup>1</sup>Birkbeck, University of London, <sup>2</sup>University College London  
 Published at [SIGGRAPH 2024](https://s2024.siggraph.org/) (Conference Track)
 
-[[Paper](https://arxiv.org/abs/2310.06822)]
+[[Paper](https://dl.acm.org/doi/abs/10.1145/3641519.3657442)]
 [[Project Page](https://wenxin-liu.github.io/neural_bounding)]
 
 ![Paper teaser image](docs/teaser.png)
